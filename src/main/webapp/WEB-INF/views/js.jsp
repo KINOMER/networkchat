@@ -3,6 +3,7 @@
 %>
 <script src="${APP_PATH }/static/js/jquery-1.12.4.min.js"></script>
 <script src="${APP_PATH }/static/js/jquery.qqFace.js"></script>
+<script src="${APP_PATH }/static/js/jquery.form.js"></script>
 <%-- <script src="${APP_PATH }/static/js/jquery.leanModal.min.js"></script> --%>
 <script
 	src="${APP_PATH }/static/plugins/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

@@ -178,8 +178,9 @@ public class UserController {
 	/**
 	 * 修该用户头像
 	 */
+	
 	@RequestMapping(value="uploadPic",method=RequestMethod.POST)
-	public String uploadUserAvator(HttpServletRequest request, HttpServletResponse response){
+	public void uploadUserAvator(HttpServletRequest request, HttpServletResponse response){
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request; 
 		MultipartFile imgFile = multipartRequest.getFile("avator");
 		try {
@@ -192,9 +193,8 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "index";
+		System.out.println("上传成功");
 	}
-
 	/**
 	 * 向浏览器输出用户头像
 	 */

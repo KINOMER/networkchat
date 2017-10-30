@@ -329,15 +329,14 @@
 																<img id="user_avator"/>
 															</div>
 															<div class="am-u-md-8" style="margin-top: 6%;">
-																<p>你可以从本地上传头像。</p>
+																<p>你可以从本地上传头像</p>
 																<form class="am-form" id="upLoadPic_Form"
-																	action="${APP_PATH}/uploadPic"
 																	enctype="multipart/form-data" method="POST">
 																	<div class="am-form-group">
 																		<input type="file" id="userPic" name="avator">
-																		<p class="am-form-help">请选择要上传的图片</p>
-																		<button type="button" id="uploadPic_btn"
-																			class="am-btn am-btn-primary am-btn-xs">保存</button>
+																		<p class="am-form-help">当图片改变时即完成上传</p>
+																		<!-- <button type="button" id="uploadPic_btn"
+																			class="am-btn am-btn-primary am-btn-xs">保存</button> -->
 																	</div>
 																</form>
 															</div>
@@ -407,11 +406,24 @@
 <jsp:include page="/WEB-INF/views/js.jsp"></jsp:include>
 
 <%--聊天室增加好友 --%>
-<!-- <script type="text/javascript">
-	$("#addFriendChat").click(function(){
-		alert(0);
-	});
-</script> -->
+<script type="text/javascript">
+	$("#userPic").change(function() {
+		
+		 var options = {  
+	                // 规定把请求发送到那个URL  
+	                url: "uploadPic",  
+	                // 请求方式  
+	                type: "post",  
+	                // 服务器响应的数据类型  
+	                dataType: "json",  
+	                // 请求成功时执行的回调函数  
+	                success: function(data, status, xhr) {  
+	                }  
+	        };  
+	          
+		$("#upLoadPic_Form").ajaxSubmit(options);  
+});
+</script>
 <%--修改用户信息前 回显用户数据--%>
 <script type="text/javascript">
 	//用户点击修改信息连接时显示对应的信息修改页面
@@ -692,7 +704,6 @@
 			type = result.type;
 			if(chat_msg != null || chat_msg != undefined)
 				chat_msg = replace_em(chat_msg);
-			console.log(result);
 			if(type == 1){
 				//获得好友发来的信息后展示在聊天框内,首先找到对应的聊天框div节点，再获得子孩子ul标签
 				var from_friend_name_ele = $(".chatBox[friend_name_chatbox='"
@@ -833,6 +844,7 @@
 				    type : 100,
 				    
 			    }
+				oGC.beginPath();
 				oGC.strokeStyle = null;
 				var str = JSON.stringify(obj);
 				//当画图点移开时向后台发送数据，告知画图点已经改变，重新划线，使线段不连续
