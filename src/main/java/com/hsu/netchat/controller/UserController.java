@@ -180,7 +180,8 @@ public class UserController {
 	 */
 	
 	@RequestMapping(value="uploadPic",method=RequestMethod.POST)
-	public void uploadUserAvator(HttpServletRequest request, HttpServletResponse response){
+	@ResponseBody
+	public Msg uploadUserAvator(HttpServletRequest request, HttpServletResponse response){
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest)request; 
 		MultipartFile imgFile = multipartRequest.getFile("avator");
 		try {
@@ -188,12 +189,13 @@ public class UserController {
 			User user = (User) request.getSession().getAttribute("userInfo");
 
 			user.setAvator(avator);
-			request.getSession().setAttribute("userInfo", user);
 			userService.uploadAdator(user);
+			request.getSession().setAttribute("userInfo", user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("上传成功");
+		return Msg.success("上传成功！");
 	}
 	/**
 	 * 向浏览器输出用户头像
@@ -207,6 +209,7 @@ public class UserController {
 
 			OutputStream outputStream = response.getOutputStream();  
 			if(user.getAvator()!=null){
+				user = userService.getUserByUserName(user.getUsername());
 				InputStream in = new ByteArrayInputStream(user.getAvator());  
 
 				int len = 0;  

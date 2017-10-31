@@ -111,7 +111,7 @@
 	height: 30px;
 }
 #canvas{
-	height: 509px; 
+	height: 512px; 
 	width: 506px; 
 	border: 1px solid; 
 	cursor:crosshair;
@@ -166,14 +166,15 @@
 					<li><a href="${APP_PATH }/index"><span
 							class="am-icon-weixin"></span> 聊天</a></li>
 					<li><a href="javascript:void(0)" class="am-cf"
-						id="userInfo_href"> <span class="am-icon-book"></span> 个人信息 <span
+						id="userInfo_href"> <span class="am-icon-book"></span> 信息 <span
 							class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span>
 					</a></li>
 
-					<li class="admin-parent"><a class="am-cf"
-						data-am-collapse="{target: '#collapse-nav'}"><span
-							class="am-icon-cogs"></span> 设置 <span
-							class="am-icon-angle-right am-fr am-margin-right"></span></a>
+				<!-- 	<li class="admin-parent"><a class="am-cf"
+						data-am-collapse="{target: '#collapse-nav'}"><span -->
+						<li class="admin-parent"><a class="am-cf"><span
+							class="am-icon-cogs"></span> 设置 <!-- <span
+							class="am-icon-angle-right am-fr am-margin-right"></span> --></a>
 						<ul class="am-list am-collapse admin-sidebar-sub am-in"
 							id="collapse-nav">
 							<li>
@@ -182,8 +183,8 @@
 									<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span>
 								</a>
 							</li>
-							<li><a href="system-setting.html" target="_blank"
-								class="am-cf"><span class="am-icon-cog"></span> 系统设置<span
+							<li><a href="javascript:void(0)" id="desktop-notification"
+									class="am-cf"><span class="glyphicon glyphicon-bell" ></span> 页面通知<span
 									class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
 
 						</ul></li>
@@ -386,7 +387,7 @@
 						<!-- 白板区 -->
 						<div style="margin-left: 67.5%;">
 							<div id='canvas'>
-								<canvas id="c1" width="506" height="509">  
+								<canvas id="c1" width="506" height="512">  
 								</canvas>
 							</div>
 								
@@ -400,34 +401,16 @@
 			</div>
 		</div>
 	</div>
+	
 	<jsp:include page="helpModal.html"></jsp:include>
 	<jsp:include page="infoSettingModal.html"></jsp:include>
 </body>
 <jsp:include page="/WEB-INF/views/js.jsp"></jsp:include>
 
-<%--聊天室增加好友 --%>
-<script type="text/javascript">
-	$("#userPic").change(function() {
-		
-		 var options = {  
-	                // 规定把请求发送到那个URL  
-	                url: "uploadPic",  
-	                // 请求方式  
-	                type: "post",  
-	                // 服务器响应的数据类型  
-	                dataType: "json",  
-	                // 请求成功时执行的回调函数  
-	                success: function(data, status, xhr) {  
-	                }  
-	        };  
-	          
-		$("#upLoadPic_Form").ajaxSubmit(options);  
-});
-</script>
-<%--修改用户信息前 回显用户数据--%>
+
+<%--修改用户信息前 回显用户数据--查看用户个人信息 修改头像信息--%>
 <script type="text/javascript">
 	//用户点击修改信息连接时显示对应的信息修改页面
-	
 	$(function(){
 		getSrceenWH();
 		
@@ -465,6 +448,71 @@
 		getSrceenWH();
 	}  
 	$(window).resize();  
+	
+	//修改用户头像
+	$("#userPic").change(function() {
+		 var options = {  
+	     	url: "uploadPic",  
+	        type: "post",  
+	        dataType: "json",  
+	        success: function(data, status, xhr) { 
+	        			alert(data.msg);
+	        }  
+	 	 };  
+	          
+		$("#upLoadPic_Form").ajaxSubmit(options);  
+	});
+	
+	
+	/**
+	 * 在用户查看自己的信息时
+	 */
+	var avatarPath = null;
+	$("#userInfo_href").click(function() {
+		//回显用户的头像信息
+		if ("${userInfo.avator != null}") {
+			/*$("#user_avator").attr("src", "${APP_PATH }/readUserAvator");*/
+			if(avatarPath == null ||avatarPath == undefined){
+				$("#user_avator").attr("src", "readUserAvator");
+			}
+			else{
+				$("#user_avator").attr("src", avatarPath);
+			}
+		}
+		var chatBox_demo_ele = $(".chatBox_demo");
+		var child = chatBox_demo_ele.children(':first');
+		$(".friend-title").hide();
+		$(".chatBox").hide();
+		//详细信息标题
+		$(".userInfo").show();
+		$("#friendInfo").hide();
+		$("#msg_div").hide();
+		$(".chatBox_demo").show();
+		$("#userInfo").show();
+		$(".friend-title").hide();
+		child.text("");
+
+	});
+
+	//在用户改变头像时更新显示的头像信息
+	$("#userPic").change(function() {
+		var avatorPath = getObjectURL(this.files[0]);
+		avatarPath = avatorPath;
+		$("#user_avator").attr("src", avatorPath);
+	});
+	//返回上传图片的url
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) { // basic
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) { // mozilla(firefox)
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) { // webkit or chrome
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	}
+
 </script>
 
 <!-- 用户添加好友信息时 -->
@@ -519,7 +567,19 @@
 			alert('当前浏览器不支持HTML5服务，请换一个浏览器！');
 			return;
 		}
-
+	
+		if (!("Notification" in window)) {
+		       alert("不支持 notification");
+		   } else if (Notification.permission === "granted") { // 允许通知
+			   
+		   }else if (Notification.permission !== 'denied') { // 用户没有选择是否显示通知，向用户请求许可
+		       Notification.requestPermission(function(permission) {
+		           if (permission === "granted") {
+		        	   
+		           }
+		       });
+		   }
+		
 		//单击好友获得好友信息
 		$(document).on("click", ".friend", function() {
 			var friend_autograph = $(this).attr("friend_autograph");
@@ -608,15 +668,18 @@
 			str = str.replace(/\</g, '&lt;');
 			str = str.replace(/\>/g, '&gt;');
 			str = str.replace(/\n/g, '<br/>');
-			str = str
-					.replace(/\[em_([0-9]*)\]/g,
+			str = str.replace(/\[em_([0-9]*)\]/g,
 							'<img src="${APP_PATH}/static/pic/facelist/$1.gif" border="0" />');
-
 			return str;
 
 		}
 
 		var sendMsg = null;
+		
+		//点击发送消息按钮发送数据
+		$("#send_text_btn").click(function() {
+			sendContent();
+		});
 		//发送消息绑定回车事件
 		$('#send_text').on('keypress',function(event){ 
 	        if(event.keyCode == 13){  
@@ -625,10 +688,6 @@
 	        }else if(event.keyCode != 13) 
 	        	return;
     	});
-		//点击发送消息按钮发送数据
-		$("#send_text_btn").click(function() {
-			sendContent();
-		});
 		function sendContent(){
 			var to_friend = $("#friendName").text();
 			var to_friend_id_demo = friends_map.get(to_friend).userId;
@@ -694,10 +753,20 @@
 		//处理发送回来的消息
 		//获得发送消息好友的名称
 		var from_friend = null;
-		//获得好友发送过来的消息
 		var chat_msg = null;
-		//这里要完成好友消息的提醒，以及将好友发来的聊天信息展示在聊天框内,
+		var flag = true;  //页面通知的标记
+		$("#desktop-notification").click(function(){
+			if(flag){
+				flag = false;
+				alert("页面通知已关闭！");
+			}else{
+				flag = true;
+				alert("页面通知已开启！");
+			}
+		});
+		//这里要完成好友消息的提醒，以及将好友发来的聊天信息展示在聊天框内,/获得好友发送过来的消息
 		ws.onmessage = function(event) {
+			var flag1 = flag;
 			eval("var result=" + event.data);
 			from_friend = result.from;
 			chat_msg = result.content;
@@ -767,6 +836,30 @@
 					//当聊天框没有隐藏的时候，让发送来的消息一直处在滚动条底部
 					$(".chatBox").scrollTop($(".chatBox :visible")[0].scrollHeight);
 				}
+				//桌面通知提醒
+				notice(from_friend , result.content , "data:image/jpeg;base64,"
+						+ friend_avatar);
+			}
+			
+			function notice(title , body , icon) {
+				//判断页面通知标记，为真时通知
+				if(flag){
+					var notification = new Notification(title,{
+					 	   body:body,
+					       icon:icon,
+					       tag:"1",
+					});
+				   //设置桌面通知的时间量，两秒后关闭通知
+					notification.onshow = function () {
+				    	setTimeout(function () {
+						        notification.close();
+						    }, 2000);
+					}
+					notification.onclick = function(){
+						notification.close();
+					}
+				}
+				
 			}
 			
 			//白板演示,展示给好友
@@ -795,7 +888,10 @@
 	}
 	
 </script>
-
+<%--聊天室增加好友 --%>
+<script type="text/javascript">
+	
+</script>
 <%--白板 --%>
 <script type="text/javascript">
 	initCanvas();
@@ -926,6 +1022,7 @@
               .style.borderColor = "#d08";
       }
 </script>
+
 
 <script type="text/javascript">
 	window.addEventListener('beforeunload', function(event) {

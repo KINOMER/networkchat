@@ -1,48 +1,5 @@
 
 /**
- * 在用户查看自己的信息时
- */
-$("#userInfo_href").click(function() {
-	//回显用户的头像信息
-	if ("${userInfo.avator != null}") {
-		/*$("#user_avator").attr("src", "${APP_PATH }/readUserAvator");*/
-		$("#user_avator").attr("src", "readUserAvator");
-	}
-	var chatBox_demo_ele = $(".chatBox_demo");
-	var child = chatBox_demo_ele.children(':first');
-	$(".friend-title").hide();
-	$(".chatBox").hide();
-	//详细信息标题
-	$(".userInfo").show();
-	$("#friendInfo").hide();
-	$("#msg_div").hide();
-	$(".chatBox_demo").show();
-	$("#userInfo").show();
-	$(".friend-title").hide();
-	child.text("");
-
-});
-
-//在用户改变头像时更新显示的头像信息
-$("#userPic").change(function() {
-	var avatorPath = getObjectURL(this.files[0]);
-	$("#user_avator").attr("src", avatorPath);
-	$("#upLoadPic_Form").ajaxSubmit(options);  
-});
-//返回上传图片的url
-function getObjectURL(file) {
-	var url = null;
-	if (window.createObjectURL != undefined) { // basic
-		url = window.createObjectURL(file);
-	} else if (window.URL != undefined) { // mozilla(firefox)
-		url = window.URL.createObjectURL(file);
-	} else if (window.webkitURL != undefined) { // webkit or chrome
-		url = window.webkitURL.createObjectURL(file);
-	}
-	return url;
-}
-
-/**
  *用户点击发消息按钮时显示与好友对应的聊天框
  */
 $(".sendMsg_btn").click(function(){
