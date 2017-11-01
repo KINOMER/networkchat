@@ -34,26 +34,39 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
 	/**
-	 * 跳转到登录页面
+	 * 转发到用户登录页面[考虑到用户第一次登录界面，注销退出页面(没有session值)，或者直接×掉页面(session未过期)两种情况]
+	 * @param request
+	 * @return 用户在没有登录网站的情况下不会存有session值，直接转发到登录页面
+	 *         用户在登陆以后并不是通过注销方式退出网站(本地存有session值)，再登录时应该直接重定向到主页面
 	 */
-	@RequestMapping("/login1")
-	public String forwardIndexpage(){
-		return "login1";
-	} 
+	@RequestMapping(value = "/login") 
+	public String login(HttpServletRequest request){
+		User userInfo = (User) request.getSession().getAttribute("userInfo");
+		
+		if(userInfo != null){
+			return "redirect:/index";
+		}
 
+		return "login";
+	}
 	/**
-	 * 跳转到注册页面
+	 * 转发到注册页面
+	 * @return
 	 */
 	@RequestMapping("regist")
 	public String regist(){
+		
 		return "regist";
 	}
 	/**
-	 * 跳转到主页面
+	 * 转发到登录页面
+	 * @return
 	 */
 	@RequestMapping("/index")
 	public String forwardIndexPage(){
+		
 		return "index";
 	}
 	/**
@@ -70,7 +83,6 @@ public class UserController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(username);
 
 		//后端校验用户名
 		String usernameRegx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
@@ -82,6 +94,7 @@ public class UserController {
 		if(user != null){	
 			return Msg.fail("用户名已存在！"); 
 		}
+		
 		return Msg.success("用户名可用！");
 	}
 
@@ -105,61 +118,37 @@ public class UserController {
 		if(result.hasErrors()){
 			Map<String ,Object> map = new HashMap<String ,Object>();
 			List <FieldError> errors = result.getFieldErrors();
+			
 			for(FieldError error : errors){
 				map.put(error.getField(), error.getDefaultMessage());
 			}
+			
 			return Msg.fail("验证信息错误!").add("errors", map);
 		}else{
 			//注册时将用户密码加密
 			user.setPassword(MD5Util.md5(user.getPassword()));
 			userService.insertUser(user);
+			
 			return Msg.success("用户注册成功，请登录！");
 		}
 	}
 
-	/**
-	 * 用户登录到主页面
-	 */
-	@RequestMapping(value = "/login") 
-	public String login(User user,HttpServletRequest request){
-		
-		/*	user = (userService.getUserByUserName(user.getUsername()));
-		request.getSession().setAttribute("userInfo", user);*/
-		//将用户名和密码放在session中，在进行用户信息修改时使session域中的用户信息完整
-		/*request.getSession().setAttribute("username", user.getUsername());
-		request.getSession().setAttribute("password", user.getPassword());*/
-		//System.out.println(request.getSession().getAttribute("userInfo"));
-
-		//如果登陆失败从request中获取认证异常信息，shiroLoginFailure就是shiro异常类的全限定名
-		//System.out.println(user.getUsername()+"......");
-
-		return "login";
-	}
-
+	
 	/**
 	 * 如果该浏览器已经有用户登录，跳转到错误页面进行提示
+	 * @return
 	 */
 	@RequestMapping("/forwardErrorPage")
 	public String errorPage(){
+		
 		return "errorPage";
 	}
+	
 	/**
-	 * 转发到用户信息修改页面
-	 */
-	@RequestMapping("/userInfoSet")
-	public String userInfo(){
-		return "infoSetting";
-	}
-
-	/**
-	 * 查看个人信息
-	 */  
-	@RequestMapping("userInfo")
-	public String listUserInfo(){
-		return "userInfo";
-	}
-	/**
-	 * 修改用户信息,返回json数据进行提示
+	 * 更新用户信息
+	 * @param user
+	 * @param request
+	 * @return
 	 */
 	@RequestMapping(value="/userInfo",method=RequestMethod.PUT)
 	@ResponseBody
@@ -172,13 +161,16 @@ public class UserController {
 		//再从数据库中查询完整的包含头像信息的用户信息
 		user = userService.getUserByUserName(user.getUsername());
 		request.getSession().setAttribute("userInfo", user);
+		
 		return Msg.success("修改信息成功！");
 	}
 
 	/**
-	 * 修该用户头像
+	 * 更新用户头像
+	 * @param request
+	 * @param response
+	 * @return
 	 */
-	
 	@RequestMapping(value="uploadPic",method=RequestMethod.POST)
 	@ResponseBody
 	public Msg uploadUserAvator(HttpServletRequest request, HttpServletResponse response){
@@ -194,11 +186,13 @@ public class UserController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("上传成功");
+		
 		return Msg.success("上传成功！");
 	}
 	/**
-	 * 向浏览器输出用户头像
+	 * 想浏览器输出头像
+	 * @param request
+	 * @param response
 	 */
 	@RequestMapping("/readUserAvator")
 	public void readUserAvator(HttpServletRequest request,HttpServletResponse response){

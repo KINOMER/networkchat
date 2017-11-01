@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div>
-			<p id="warnMsg"></p>
+			<p id="warnMsg" style="text-align: center;"></p>
 		</div>
 		<div class="regist form">
 			<form id="regist_form" action="${APP_PATH }/regist" method="post">

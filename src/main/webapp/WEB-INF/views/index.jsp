@@ -174,21 +174,21 @@
     position: relative;  
     margin-right: 15px;  
     float: right;  
-    background-color: #569fdc;
-    border: 1px solid #569fdc;  
+    background-color: #b6d6e6;
+    border: 1px solid #b6d6e6;  
 }  
 .rightBubble .bottomLevel{  
     position: absolute;  
     top: 12px;  
     right: -10px;  
-    border-bottom: 10px solid #569fdc;  
+    border-bottom: 10px solid #b6d6e6;  
     border-right: 10px solid transparent;  
 }  
 .rightBubble .topLevel{  
     position: absolute;  
     top: 11px;  
     right: -8px;  
-    border-bottom: 10px solid #569fdc;  
+    border-bottom: 10px solid #b6d6e6;  
     border-right: 10px solid transparent;  
     z-index: 100;  
 }  
@@ -1085,18 +1085,10 @@
 
 
 <script type="text/javascript">
-	window.addEventListener('beforeunload', function(event) {
+	 window.addEventListener('beforeunload', function(event) {
 		ws.close();
 	});
-	window.onbeforeunload = function(e) {
-		e = e || window.event;
-		// 兼容IE8和Firefox 4之前的版本
-		if (e) {
-			e.returnValue = '你确定要退出吗？';
-		} else {
-			return '你确定要退出吗？';
-		}
-	};
+	
 </script>
 
 
