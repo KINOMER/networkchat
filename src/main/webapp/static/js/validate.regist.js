@@ -28,6 +28,7 @@
 					$("#warnMsg").html("").css({});
 					$("#warnMsg").html(msg).css({
 						"color":"green",
+						"text-align":"center",
 					});
 				}else{
 					warnMsg(msg);
@@ -76,11 +77,11 @@
 						$("#warnMsg").html("").css({});
 						$("#warnMsg").html(msg).css({
 							"color":"green",
+							"text-align":"center",
 						});
 					}else{
 						warnMsg(msg);
 					}
-					console.log(data);
 					
 				}
 			});
@@ -92,6 +93,7 @@
 		$("#warnMsg").html("").css({});
 		$("#warnMsg").html(msg).css({
 			"color":"red",
+			"text-align":"center",
 		});
 	}
 	

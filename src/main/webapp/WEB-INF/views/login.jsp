@@ -7,23 +7,16 @@
 	
 	<title>用户登录</title>
 	<link rel="stylesheet" type="text/css" href="${APP_PATH }/static/css/register-login.css">
-	<style type="text/css">
-		.imgcode{
-			width: 80px;
-			position: absolute;
-			right: 0;
-			top: 8px;
-			cursor: pointer;
-			height: 30px;
-		}
-	</style>
+	<link rel="icon" type="image/png"
+		href="${APP_PATH }/static/plugins/assets/i/favicon.png">
+	
 </head>
 <body>
 <div id="box"></div>
 <div class="cent-box register-box">
 	<div class="cent-box-header">
 		<h1>用户登录</h1>
-		<h2 class="sub-title">心灵的展示--Communication</h2>
+		<h2 class="sub-title"></h2>
 	</div>
 
 	<div class="cont-main clearfix">
@@ -92,7 +85,6 @@
 		var password = $("#password").val();
 		var valistr = $("#verify").val();
 		
-		//alert(username+"   "+password+"   "+valistr+"   "+rememberMe	)
 		
 		if(username == ""){
 			warnMsg("请输入用户名！");

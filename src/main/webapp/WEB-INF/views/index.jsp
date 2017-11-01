@@ -137,11 +137,66 @@
 	float: left;
 	border : 2px solid #000;
 }
+.bubble{  
+    max-width: 330px;  
+    position: relative;  
+    line-height: 30px;  
+    padding-left: 10px;  
+    padding-top: 3px;  
+    padding-bottom: 3px;  
+    border-radius: 7px;  
+    margin-top: 10px;  
+    padding-right: 10px;  
+    display: inline-block;  
+}  
+.leftBubble{  
+    position: relative;  
+    margin-left: 15px;  
+    border: 1px solid rgb(204, 204, 204);  
+    background-color: #f5f5f5;  
+}  
+.leftBubble .bottomLevel{  
+    position: absolute;  
+    top: 10px;  
+    left: -10px;  
+    border-top: 10px solid rgb(204, 204, 204);  
+    border-left: 10px solid transparent;  
+}  
+.leftBubble .topLevel{  
+    position: absolute;  
+    top: 11px;  
+    left: -8px;  
+    border-top: 10px solid #f5f5f5;  
+    border-left: 10px solid transparent;  
+    z-index: 100;  
+}  
+.rightBubble{  
+    position: relative;  
+    margin-right: 15px;  
+    float: right;  
+    background-color: #569fdc;
+    border: 1px solid #569fdc;  
+}  
+.rightBubble .bottomLevel{  
+    position: absolute;  
+    top: 12px;  
+    right: -10px;  
+    border-bottom: 10px solid #569fdc;  
+    border-right: 10px solid transparent;  
+}  
+.rightBubble .topLevel{  
+    position: absolute;  
+    top: 11px;  
+    right: -8px;  
+    border-bottom: 10px solid #569fdc;  
+    border-right: 10px solid transparent;  
+    z-index: 100;  
+}  
 </style>
 <body>
 	<header class="am-topbar am-topbar-inverse admin-header">
 		<div class="am-topbar-brand">
-			<strong>B/S在线交流</strong>
+			<!-- <strong>B/S在线交流</strong> -->
 		</div>
 
 		<div class="am-collapse am-topbar-collapse" id="topbar-collapse">
@@ -158,7 +213,7 @@
 		</div>
 	</header>
 
-														<%--链接展示栏 --%>
+	<%-------------------------------------------链接展示栏 -----------------------------------------------------%>
 	<div class="am-cf admin-main">
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
@@ -170,40 +225,36 @@
 							class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span>
 					</a></li>
 
-				<!-- 	<li class="admin-parent"><a class="am-cf"
+					<!-- 	<li class="admin-parent"><a class="am-cf"
 						data-am-collapse="{target: '#collapse-nav'}"><span -->
-						<li class="admin-parent"><a class="am-cf"><span
+					<li class="admin-parent"><a class="am-cf"><span
 							class="am-icon-cogs"></span> 设置 <!-- <span
 							class="am-icon-angle-right am-fr am-margin-right"></span> --></a>
 						<ul class="am-list am-collapse admin-sidebar-sub am-in"
 							id="collapse-nav">
-							<li>
-								<a href="javascript:void(0)" class="am-cf" id="userInfoSetting">
-									<span class="glyphicon glyphicon-pencil">个人资料</span>
-									<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span>
-								</a>
-							</li>
+							<li><a href="javascript:void(0)" class="am-cf"
+								id="userInfoSetting"> <span
+									class="glyphicon glyphicon-pencil">个人资料</span> <span
+									class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span>
+							</a></li>
 							<li><a href="javascript:void(0)" id="desktop-notification"
-									class="am-cf"><span class="glyphicon glyphicon-bell" ></span> 页面通知<span
+								class="am-cf"><span class="glyphicon glyphicon-bell"></span>
+									桌面通知<span
 									class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
 
 						</ul></li>
-					<li>
-						
-						<a href="javascript:void(0);" class="help"><span>帮助</span></a>
-					</li>
-					<li>
-						
-						<a href="javascript:void(0);" class="aboutUsInfo"><span>关于</span></a>
-					</li>
+					<li><a href="javascript:void(0);" class="help"><span
+							class="glyphicon glyphicon-home"></span> 帮助</a></li>
+					<li><a href="javascript:void(0);" class="aboutUsInfo"><span
+							class="glyphicon glyphicon-link"></span> 关于</a></li>
 					<li><a href="${APP_PATH }/logout"><span
-							class="am-icon-sign-out"></span> 注销</a></li>
+							class="glyphicon glyphicon-off"></span> 注销</a></li>
 				</ul>
 
 				<div class="am-panel am-panel-default admin-sidebar-panel">
 					<div class="am-panel-bd">
 						<p>
-							<span class="am-icon-tag"></span> 签名
+							<span class="glyphicon glyphicon-tags"></span> 签名
 						</p>
 						<p class="user-autograph list-msg">
 							<c:if
@@ -220,7 +271,7 @@
 				<div class="am-panel am-panel-default admin-sidebar-panel">
 					<div class="am-panel-bd">
 						<p>
-							<span class="am-icon-bookmark"></span> 公告
+							<span class="glyphicon glyphicon-bookmark"></span> 公告
 						</p>
 						<p class="list-msg">${anno}</p>
 					</div>
@@ -229,14 +280,14 @@
 			</div>
 		</div>
 
-														<%--信息交流展示 --%>
+		<%-------------------------------------------信息交流展示 ------------------------------------------------------%>
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div style="border: 1px solid #ccc;" class="am-cf am-padding">
 					<div class="am-fl am-cf" style="float: left; width: 100%;">
 						<div style="float: left">
-							<strong class="am-text-primary am-text-lg">主页</strong> / <small>Communicate</small>
-						</div>
+							<strong class="am-text-primary am-text-lg">B/S</strong>  在线交流平台
+						</div>  
 						<div style="float: right; position: relative; width: 200px;"
 							class="input-group">
 
@@ -251,7 +302,7 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-2">
-							<!-- 列表区 -->
+		<%---------------------------------------------------- 列表区 ----------------------------------%>
 							<div class="am-panel am-panel-default"
 								style="float: right; width: 100%;">
 								<div class="am-panel-hd">
@@ -263,114 +314,117 @@
 							</div>
 						</div>
 
-						<!-- 聊天区 -->
+		<%---------------------------------- 聊天区 ---------------------------------------------------%>
 						<div class="col-md-6 chat-list">
-							<!-- <div style="width: 100%;height: 30px;" id="chat_div"> -->
-								<div class="friend-title" style="display: none; margin-top: 8px;text-align: center;">
-									<%-- <img id="addFriendChat" src="${APP_PATH }/static/pic/add-friend.png"> --%>
-									<span id="friendName" ></span>
-								</div>
-								
-								<div id="all_chat_div">
-								
-									<div id="0" class="am-scrollable-vertical chatBox_demo"
-										style="height: 510px; border: 1px solid rgb(204, 204, 204);">
-										<ul id="chatInfo"
-											class="am-comments-list am-comments-list-flip">
-											<li class="warn-chat-noone">未选择聊天</li>
-										</ul>
-										
-												<%--用户个人信息的div --%>
-										<div class="userInfo" style="display: none;">
-											<span>详细信息</span>
-										</div>
-										<hr>
-														<%--用户个人信息 --%>
-										<div class="am-tabs am-margin" data-am-tabs id="userInfo" style="display: none;">
-											
-											<div class="am-tab-panel am-fade am-in am-active">
-												<div class="am-g">
-													<div class="am-u-md-6">
-														<b>用户名:</b>
-													</div>
-													<div class="am-u-md-6">${userInfo.username}</div>
+							<div class="friend-title"
+								style="display: none; margin-top: 8px; text-align: center;">
+								<%-- <img id="addFriendChat" src="${APP_PATH }/static/pic/add-friend.png"> --%>
+								<span id="friendName"></span>
+							</div>
 
-													<div class="am-u-md-6">
-														<b>性别:</b>
-													</div>
-													<div class="am-u-md-6 userGender_detail" >
-														<c:if test="${userInfo.sex == 1}">男</c:if>
-														<c:if test="${userInfo.sex == 0}">女</c:if>
-														<c:if test="${userInfo.sex == null}">保密</c:if>
-													</div>
-													<div class="am-u-md-6">
-														<b>年龄:</b>
-													</div>
-													<div class="am-u-md-6 userAge_detail">
-														<c:if test="${userInfo.age != null && userInfo.age != ''}">${userInfo.age}</c:if>
-														<c:if test="${userInfo.age == null}">保密</c:if>
-													</div>
-													<div class="am-u-md-6">
-														<b>签名:</b>
-													</div>
-													<div class="am-u-md-6">
-														<c:if
-															test="${userInfo.autograph == null || userInfo.autograph == ''}">
+							<div id="all_chat_div">
+
+								<div id="0" class="am-scrollable-vertical chatBox_demo"
+									style="height: 512px; border: 1px solid rgb(204, 204, 204);">
+									<ul id="chatInfo"
+										class="am-comments-list am-comments-list-flip">
+										<li class="warn-chat-noone">未选择聊天</li>
+									</ul>
+
+									<%--用户个人信息的div --%>
+									<div class="userInfo" style="display: none;">
+										<span>详细信息</span>
+									</div>
+									<hr>
+			<%--------------------------------------用户个人信息 ---------------------------------------%>
+									<div class="am-tabs am-margin" data-am-tabs id="userInfo"
+										style="display: none;">
+
+										<div class="am-tab-panel am-fade am-in am-active">
+											<div class="am-g">
+												<div class="am-u-md-6">
+													<b>用户名:</b>
+												</div>
+												<div class="am-u-md-6">${userInfo.username}</div>
+
+												<div class="am-u-md-6">
+													<b>性别:</b>
+												</div>
+												<div class="am-u-md-6 userGender_detail">
+													<c:if test="${userInfo.sex == 1}">男</c:if>
+													<c:if test="${userInfo.sex == 0}">女</c:if>
+													<c:if test="${userInfo.sex == null}">保密</c:if>
+												</div>
+												<div class="am-u-md-6">
+													<b>年龄:</b>
+												</div>
+												<div class="am-u-md-6 userAge_detail">
+													<c:if test="${userInfo.age != null && userInfo.age != ''}">${userInfo.age}</c:if>
+													<c:if test="${userInfo.age == null}">保密</c:if>
+												</div>
+												<div class="am-u-md-6">
+													<b>签名:</b>
+												</div>
+												<div class="am-u-md-6">
+													<c:if
+														test="${userInfo.autograph == null || userInfo.autograph == ''}">
 							                               	这个人很懒,什么都没有留下!
 							                            </c:if>
-														<c:if
-															test="${userInfo.autograph != null && userInfo.autograph != ''}">
+													<c:if
+														test="${userInfo.autograph != null && userInfo.autograph != ''}">
 							                               	${userInfo.autograph}
 							                            </c:if>
-													</div>
-															<%--展示用户头像信息 --%>
-													<div class="am-panel-bd" >
-														<div >
-															<div class="am-u-md-4" style="margin-top: 6%; padding:0px;">
-																<img id="user_avator"/>
-															</div>
-															<div class="am-u-md-8" style="margin-top: 6%;">
-																<p>你可以从本地上传头像</p>
-																<form class="am-form" id="upLoadPic_Form"
-																	enctype="multipart/form-data" method="POST">
-																	<div class="am-form-group">
-																		<input type="file" id="userPic" name="avator">
-																		<p class="am-form-help">当图片改变时即完成上传</p>
-																		<!-- <button type="button" id="uploadPic_btn"
+												</div>
+			<%----------------------------------------------展示用户头像信息 --------------------------------------------------%>
+												<div class="am-panel-bd">
+													<div>
+														<div class="am-u-md-4"
+															style="margin-top: 6%; padding: 0px;">
+															<img id="user_avator" />
+														</div>
+														<div class="am-u-md-8" style="margin-top: 6%;">
+															<p>你可以从本地上传头像</p>
+															<form class="am-form" id="upLoadPic_Form"
+																enctype="multipart/form-data" method="POST">
+																<div class="am-form-group">
+																	<input type="file" id="userPic" name="avator">
+																	<p class="am-form-help">当图片改变时即完成上传</p>
+																	<!-- <button type="button" id="uploadPic_btn"
 																			class="am-btn am-btn-primary am-btn-xs">保存</button> -->
-																	</div>
-																</form>
-															</div>
+																</div>
+															</form>
 														</div>
 													</div>
 												</div>
 											</div>
-
 										</div>
-										
-														<%--用户好友信息的div --%>
-										<div class="am-tabs am-margin" data-am-tabs id="friendInfo" style="display: none; text-align: center;">
-											<div class="info-margin-1">
-												<img id="friendAvatar" src=""/>
-											</div>
-											<div class="info-margin-2">
-												<span id="friendName_detail"></span>	
-												<!-- <i class="i_gender"></i> -->
-												<img  class="img-gender" src=""/>
-											</div>
-											<div class="info-margin-2">
-												<span id="friendAuto"> </span>
-											</div>
-											<div class="info-margin-1">
-												<button class="sendMsg_btn">发消息</button>
-											</div>
+
+									</div>
+
+			<%-----------------------------------------用户好友信息的div ---------------------------------------------------%>
+									<div class="am-tabs am-margin" data-am-tabs id="friendInfo"
+										style="display: none; text-align: center;">
+										<div class="info-margin-1">
+											<img id="friendAvatar" src="" />
+										</div>
+										<div class="info-margin-2">
+											<span id="friendName_detail"></span>
+											<!-- <i class="i_gender"></i> -->
+											<img class="img-gender" src="" />
+										</div>
+										<div class="info-margin-2">
+											<span id="friendAuto"> </span>
+										</div>
+										<div class="info-margin-1">
+											<button class="sendMsg_btn">发消息</button>
 										</div>
 									</div>
 								</div>
-								
-														<%--表情与发送信息 --%>
-								<div id="msg_div" style="display: none;">
-									<div id="emoticon_div" class="emotion" >
+							</div>
+
+		<%-------------------------------------------表情与发送信息 -----------------------------------------------%>
+							<div id="msg_div" style="display: none;">
+								<div id="emoticon_div" class="emotion">
 									<img src="${APP_PATH}/static/pic/smile.png"
 										style="width: 25px; height: 25px;"></img>
 								</div>
@@ -380,28 +434,28 @@
 								<div>
 									<button id="send_text_btn" class="btn btn-default">发送</button>
 								</div>
-								</div>
-								
+							</div>
+
 							<!-- </div> -->
 						</div>
-						<!-- 白板区 -->
+		<%-- ------------------------------------ 白板区 -----------------------------------------------%>
 						<div style="margin-left: 67.5%;">
 							<div id='canvas'>
 								<canvas id="c1" width="506" height="512">  
 								</canvas>
 							</div>
-								
+
 							<div id="boardList">
 								<div id="colorList"></div>
 							</div>
 						</div>
-							
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<jsp:include page="helpModal.html"></jsp:include>
 	<jsp:include page="infoSettingModal.html"></jsp:include>
 </body>
@@ -564,13 +618,13 @@
 		} else if ('MozWebSocket' in window) {
 			ws = new MozWebSocket(url);
 		} else {
-			alert('当前浏览器不支持HTML5服务，请换一个浏览器！');
+			alert('当前浏览器不支持HTML5服务！');
 			return;
 		}
 	
 		if (!("Notification" in window)) {
-		       alert("不支持 notification");
-		   } else if (Notification.permission === "granted") { // 允许通知
+		       alert("当前浏览器不支持 notification");
+		   } /* else if (Notification.permission === "granted") { // 允许通知
 			   
 		   }else if (Notification.permission !== 'denied') { // 用户没有选择是否显示通知，向用户请求许可
 		       Notification.requestPermission(function(permission) {
@@ -578,7 +632,7 @@
 		        	   
 		           }
 		       });
-		   }
+		   } */
 		
 		//单击好友获得好友信息
 		$(document).on("click", ".friend", function() {
@@ -713,7 +767,9 @@
 			var div_all_ele = $("<div></div>");
 
 			var div_content_ele = $("<div></div>");
-			var span_content_ele = $("<span></span>");
+			var span_content_ele = $("<span class='bubble rightBubble'></span>");
+			var span_horn1_ele =  $("<span class='bottomLevel'></span>");
+			var span_horn2_ele =  $("<span class='topLevel'></span>");
 			//将信息筛选，需要转化为表情的转化为表情符号
 			span_content_ele.html(replace_em(sendMsg));
 
@@ -729,7 +785,6 @@
 
 			div_content_ele.css({
 				'float' : 'right',
-				'margin-right' : '10px',
 			});
 			div_avatar_ele.css({
 				'float' : 'right',
@@ -739,6 +794,8 @@
 			img_avatar_ele.appendTo(div_avatar_ele);
 			div_avatar_ele.appendTo(div_all_ele);
 			span_content_ele.appendTo(div_content_ele);
+			span_horn1_ele.appendTo(span_content_ele);
+			span_horn2_ele.appendTo(span_content_ele);
 			div_content_ele.appendTo(div_all_ele);
 			div_all_ele.appendTo(li_ele);
 
@@ -758,10 +815,10 @@
 		$("#desktop-notification").click(function(){
 			if(flag){
 				flag = false;
-				alert("页面通知已关闭！");
+				alert("桌面通知已关闭！");
 			}else{
 				flag = true;
-				alert("页面通知已开启！");
+				alert("桌面通知已开启！");
 			}
 		});
 		//这里要完成好友消息的提醒，以及将好友发来的聊天信息展示在聊天框内,/获得好友发送过来的消息
@@ -793,9 +850,10 @@
 				});
 				div_content_ele.css({
 					'float' : 'left',
-					'margin-left' : '10px',
 				});
-				var span_content_ele = $("<span></span>").append(chat_msg);
+				var span_content_ele = $("<span class='bubble leftBubble'></span>").append(chat_msg);
+				var span_horn1_ele =  $("<span class='bottomLevel'></span>");
+				var span_horn2_ele =  $("<span class='topLevel'></span>");
 
 				//根据map获取对应好友的头像
 				var friend_avatar = friends_map.get(from_friend).avator;
@@ -809,6 +867,8 @@
 				img_avatar_ele.appendTo(div_avatar_ele);
 				div_avatar_ele.appendTo(div_all_ele);
 				span_content_ele.appendTo(div_content_ele);
+				span_horn1_ele.appendTo(span_content_ele);
+				span_horn2_ele.appendTo(span_content_ele);
 				div_content_ele.appendTo(div_all_ele);
 				div_all_ele.appendTo(li_ele);
 

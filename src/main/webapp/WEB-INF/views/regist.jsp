@@ -7,13 +7,15 @@
 	<meta charset="utf-8">
 	<title>用户注册</title>
 	<link rel="stylesheet" type="text/css" href="${APP_PATH }/static/css/register-login.css">
+	<link rel="icon" type="image/png"
+		href="${APP_PATH }/static/plugins/assets/i/favicon.png">
 </head>
 <body>
 <div id="box"></div>
 <div class="cent-box register-box">
 	<div class="cent-box-header">
 		<h1>用户注册</h1>
-		<h2 class="sub-title">心灵的展示--Communication</h2>
+		<h2 class="sub-title"></h2>
 	</div>
 
 	<div class="cont-main clearfix">

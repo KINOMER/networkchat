@@ -58,6 +58,7 @@ function txtFocus(ele){
 		$("#warnMsg").html("").css({});
 		$("#warnMsg").html(msg).css({
 			"color":"red",
+			"text-align":"center",
 		});
 	}
 	
