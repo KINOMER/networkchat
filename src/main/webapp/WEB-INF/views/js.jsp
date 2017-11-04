@@ -17,4 +17,4 @@
 
 <script src="${APP_PATH }/static/js/validate.js"></script>
 <script src="${APP_PATH }/static/js/list.js"></script>
-<script src="${APP_PATH }/static/js/friend.list.js"></script>
+<%-- <script src="${APP_PATH }/static/js/friend.list.js"></script> --%>

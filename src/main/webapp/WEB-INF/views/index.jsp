@@ -365,7 +365,7 @@
 												<div class="am-u-md-6">
 													<b>签名:</b>
 												</div>
-												<div class="am-u-md-6">
+												<div class="am-u-md-6 userAuto_detail" >
 													<c:if
 														test="${userInfo.autograph == null || userInfo.autograph == ''}">
 							                               	这个人很懒,什么都没有留下!
@@ -461,8 +461,7 @@
 </body>
 <jsp:include page="/WEB-INF/views/js.jsp"></jsp:include>
 
-
-<%--修改用户信息前 回显用户数据--查看用户个人信息 修改头像信息--%>
+<%-----------------------修改用户信息前 回显用户数据--查看用户个人信息 修改头像信息-------------------------------%>
 <script type="text/javascript">
 	//用户点击修改信息连接时显示对应的信息修改页面
 	$(function(){
@@ -470,7 +469,7 @@
 		
 		//显示弹框
 		$('#userInfoSetting').click(function(){
-			
+			$(".setInfo-showWarn").html("");
 			//回显用户签名与个人简介和性别
 			$("#profile").text("${userInfo.autograph}");
 			$("#userIntro").text("${userInfo.summary}");
@@ -569,7 +568,91 @@
 
 </script>
 
-<!-- 用户添加好友信息时 -->
+<!----------------------------------- 修改用户信息 ------------------------------------------------------->
+<script type="text/javascript">
+
+	$("#user_update_btn").click(function(){
+
+		var userId = $("#userId").val();
+		if(!validate_info()){
+			return false;
+		}
+			$.ajax({
+				/*url:"${APP_PATH}/userInfo",*/
+				url:"userInfo",
+				//序列化表单数据，用于ajax传输
+				data:$("#updateUserInfoForm").serialize(),
+				type:"PUT",
+				success:function(data){
+					var profileMsg = $("#profile").val();
+					var age = $("#age").val();
+					var sex = $("#sex").val();
+					//alert(data.msg);
+					//用户信息修改成功后，根据用户的签名自动更行标题栏签名与用户性别，年龄，签名
+					 if($("#profile").val() == null || $("#profile").val() == ""){
+						 $(".user-autograph").text("你可以到个人资料中设置自己的签名.");
+					}else{
+						$(".user-autograph").text(profileMsg);
+						$(".userAuto_detail").text(profileMsg);
+					} 
+					if(sex == 0){
+						$(".userGender_detail").text('女');
+					}else{
+						$(".userGender_detail").text('男');
+					}
+					$(".userAge_detail").text(age);
+					$(".setInfo-showWarn").html("修改信息成功").css({'color':'green',});
+				},
+			});
+	});
+
+	function validate_info(){
+		//1.校验用户年龄
+		var age = $("#age").val();
+		if(age<=0 || age>=120){
+			show_validate_msg("#age","error","年龄必须大于0岁且小于120岁！");
+			return false;
+		}else{
+			show_validate_msg("#age","success","");
+		}
+		//2、校验邮箱信息
+		var email = $("#userEmail").val();
+		var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+		if(!regEmail.test(email)){
+			show_validate_msg("#userEmail", "error", "邮箱格式不正确！");
+			return false;
+		}else{
+			show_validate_msg("#userEmail", "success", "");
+		}
+		//3.验证手机号码
+		var phoneNum = $("#userPhone").val();
+		var regPhoneNum = /^1(3|4|5|7|8)\d{9}$/;
+		if(!regPhoneNum.test(phoneNum)){
+			show_validate_msg("#userPhone", "error", "手机号码输入错误！");
+			return false;
+		}else{
+			show_validate_msg("#userPhone", "success", "");
+		}
+		return true;
+	}
+
+	function show_validate_msg(ele,status,msg){
+		//1.移除错误与正确在父节点添加的样式
+		$(ele).parent().removeClass("has-success has-error");
+		//2.信息正确后将表单框显示成绿色
+		$(ele).css({'border-color':''});
+		$(ele).next("span").text("");
+		if(status == "success"){
+			$(ele).parent().addClass("has-success");
+			$(ele).next("span").text(msg);
+		}else{
+			$(ele).parent().addClass("has-error");
+			$(ele).css({'border-color':'#a94442'});
+			$(ele).next("span").text(msg);
+		}
+	}
+</script>
+<!---------------------------- 用户添加好友信息时 ------------------------------------------------------>
 <script type="text/javascript">
 
 	var TimeFn = null;
@@ -588,8 +671,8 @@
 				success : function(data) {
 					alert(data.msg);
 					<%--ajax信息返回后刷新页面，将添加的好友显示出来 --%>
-					if (data.msg == "添加好友成功！") {
-						//window.location.href = "${APP_PATH}/index";
+					if (data.msg == "添加好友成功!") {
+						window.location.href = "${APP_PATH}/index";
 					}
 				},
 			});
@@ -599,11 +682,12 @@
 	
 </script>
 
-<!--WebSocket连接  -->
+<!-----------------------------------------WebSocket连接  ---------------------------------------->
 <script type="text/javascript">
 	var ws;
 	window.onload = connect;
 	var username = "${userInfo.username}";
+	var friendsList = null;
 	function connect() {
 	
 		//将用户信息隐藏，再点击查看信息时再显示
@@ -624,16 +708,11 @@
 	
 		if (!("Notification" in window)) {
 		       alert("当前浏览器不支持 notification");
-		   } /* else if (Notification.permission === "granted") { // 允许通知
-			   
-		   }else if (Notification.permission !== 'denied') { // 用户没有选择是否显示通知，向用户请求许可
-		       Notification.requestPermission(function(permission) {
-		           if (permission === "granted") {
-		        	   
-		           }
-		       });
-		   } */
+		   }
 		
+		function getFriendsMap(){
+			
+		}
 		//单击好友获得好友信息
 		$(document).on("click", ".friend", function() {
 			var friend_autograph = $(this).attr("friend_autograph");
@@ -729,7 +808,6 @@
 		}
 
 		var sendMsg = null;
-		
 		//点击发送消息按钮发送数据
 		$("#send_text_btn").click(function() {
 			sendContent();
@@ -747,64 +825,68 @@
 			var to_friend_id_demo = friends_map.get(to_friend).userId;
 			//构建json数据，发送给好友，type为1 时表示私发消息
 			sendMsg = $("#send_text").val();
-			var obj = {
-				to : to_friend,
-				msg : sendMsg,
-				type : 1
-			}
-			//将发送的json数据转成字符串
-			var str = JSON.stringify(obj);
-			ws.send(str);
-			//将发送的信息添加在对应的聊天框内
-			//根据对应的好友id找到没有隐藏的聊天框
-			var chatContent_ele = $("#" + to_friend_id_demo);
-			//找到没有隐藏的聊天框下的第一个ul孩子节点
-			var ul_content_ele = chatContent_ele.children(":first");
-			//	alert(chatContent_ele+"..."+ul_content_ele);
-			var li_ele = $("<li></li>");
-			li_ele.addClass("comm_li_2");
-
-			var div_all_ele = $("<div></div>");
-
-			var div_content_ele = $("<div></div>");
-			var span_content_ele = $("<span class='bubble rightBubble'></span>");
-			var span_horn1_ele =  $("<span class='bottomLevel'></span>");
-			var span_horn2_ele =  $("<span class='topLevel'></span>");
-			//将信息筛选，需要转化为表情的转化为表情符号
-			span_content_ele.html(replace_em(sendMsg));
-
-			var div_avatar_ele = $("<div></div>");
-			var img_avatar_ele = $("<img></img>");
-			var br_ele = $("</br>");
-			//根据session中的信息请求当前用户头像
-			img_avatar_ele.attr("src", "${APP_PATH }/readUserAvator");
-			img_avatar_ele.css({
-				'width' : '40px',
-				'height' : '40px',
-			});
-
-			div_content_ele.css({
-				'float' : 'right',
-			});
-			div_avatar_ele.css({
-				'float' : 'right',
-				'margin-right' : '15px',
-			});
-
-			img_avatar_ele.appendTo(div_avatar_ele);
-			div_avatar_ele.appendTo(div_all_ele);
-			span_content_ele.appendTo(div_content_ele);
-			span_horn1_ele.appendTo(span_content_ele);
-			span_horn2_ele.appendTo(span_content_ele);
-			div_content_ele.appendTo(div_all_ele);
-			div_all_ele.appendTo(li_ele);
-
-			li_ele.appendTo(ul_content_ele);
-			br_ele.appendTo(ul_content_ele);
 			
-			$("#send_text").val('');
-			//让消息随着滚动条滚动一致固定在底部，筛选没有隐藏的聊天框
-			$(".chatBox").scrollTop($(".chatBox :visible")[0].scrollHeight);
+			if(sendMsg != null && sendMsg != ''){
+				var obj = {
+						to : to_friend,
+						msg : sendMsg,
+						type : 1
+					}
+					//将发送的json数据转成字符串
+					var str = JSON.stringify(obj);
+					ws.send(str);
+					//将发送的信息添加在对应的聊天框内
+					//根据对应的好友id找到没有隐藏的聊天框
+					var chatContent_ele = $("#" + to_friend_id_demo);
+					//找到没有隐藏的聊天框下的第一个ul孩子节点
+					var ul_content_ele = chatContent_ele.children(":first");
+					//	alert(chatContent_ele+"..."+ul_content_ele);
+					var li_ele = $("<li></li>");
+					li_ele.addClass("comm_li_2");
+
+					var div_all_ele = $("<div></div>");
+
+					var div_content_ele = $("<div></div>");
+					var span_content_ele = $("<span class='bubble rightBubble'></span>");
+					var span_horn1_ele =  $("<span class='bottomLevel'></span>");
+					var span_horn2_ele =  $("<span class='topLevel'></span>");
+					//将信息筛选，需要转化为表情的转化为表情符号
+					span_content_ele.html(replace_em(sendMsg));
+
+					var div_avatar_ele = $("<div></div>");
+					var img_avatar_ele = $("<img></img>");
+					var br_ele = $("</br>");
+					//根据session中的信息请求当前用户头像
+					img_avatar_ele.attr("src", "${APP_PATH }/readUserAvator");
+					img_avatar_ele.css({
+						'width' : '40px',
+						'height' : '40px',
+					});
+
+					div_content_ele.css({
+						'float' : 'right',
+					});
+					div_avatar_ele.css({
+						'float' : 'right',
+						'margin-right' : '15px',
+					});
+
+					img_avatar_ele.appendTo(div_avatar_ele);
+					div_avatar_ele.appendTo(div_all_ele);
+					span_content_ele.appendTo(div_content_ele);
+					span_horn1_ele.appendTo(span_content_ele);
+					span_horn2_ele.appendTo(span_content_ele);
+					div_content_ele.appendTo(div_all_ele);
+					div_all_ele.appendTo(li_ele);
+
+					li_ele.appendTo(ul_content_ele);
+					br_ele.appendTo(ul_content_ele);
+					
+					$("#send_text").val('');
+					//让消息随着滚动条滚动一致固定在底部，筛选没有隐藏的聊天框
+					$(".chatBox").scrollTop($(".chatBox :visible")[0].scrollHeight);
+			}
+			
 		}
 		
 		//处理发送回来的消息
@@ -823,13 +905,27 @@
 		});
 		//这里要完成好友消息的提醒，以及将好友发来的聊天信息展示在聊天框内,/获得好友发送过来的消息
 		ws.onmessage = function(event) {
-			var flag1 = flag;
+			
 			eval("var result=" + event.data);
 			from_friend = result.from;
 			chat_msg = result.content;
 			type = result.type;
+			
 			if(chat_msg != null || chat_msg != undefined)
 				chat_msg = replace_em(chat_msg);
+			
+			if(type == 101){
+				$("#userList > li").css("background-color","#f5f5f5");
+				friendsList = result.list;
+				//当一个信息用户上线时，如果该用户有上线用户的好友，好友列表显示在线(防止用户已经在线不能及时刷新)
+				$.each(result.list, function(index,item){ 
+					var mapUser = friends_map.get(item);
+					if(mapUser != undefined){
+						$("li[friend_name = '"+ mapUser.username+"']").css('background-color','white');
+					} 
+				    
+				});  
+			}
 			if(type == 1){
 				//获得好友发来的信息后展示在聊天框内,首先找到对应的聊天框div节点，再获得子孩子ul标签
 				var from_friend_name_ele = $(".chatBox[friend_name_chatbox='"
@@ -924,6 +1020,8 @@
 			
 			//白板演示,展示给好友
 			if(type == 0){
+				boardFlag = false;
+				
 				var oC = document.getElementById('c1');
 				var oGC = oC.getContext('2d');
 				var color = result.lineColor;
@@ -948,15 +1046,100 @@
 	}
 	
 </script>
-<%--聊天室增加好友 --%>
+<!-- -----------------------------------加载页面请求用户到好友列表  ----------------------------- -->
 <script type="text/javascript">
+	//设置一个map用户全局存放好友信息
+	var friends_map = new Map([ [ "key", "value" ] ]);
+	//页面加载时发送ajax请求，请求到用户的好友信息
+	$(document).ready(function() {
+		$.ajax({
+				/*url : "${APP_PATH}/getFriendsList",*/
+				url : "getFriendsList",
+				type : 'post',
+				success : function(data) {
+				console.log(data)
+				//页面加载请求到好友列表，遍历显示添加在好友列表里
+				$.each(
+					data.map.friends,
+					function(friendName,friend) {
+						friends_map.set(friendName,friend);
+						//var imgEle = $("<img></img>").attr("src","data:image/jpeg;base64,"+friend.avator).appendTo($("#userList"));
+						var liEle = $("<li> </li>")
+									.attr(
+									"name","liList")
+									.attr(	"friend_name",friendName)
+									.attr(	"friend_id",friend.userId)
+									.addClass("friend")
+									.css({
+										"cursor":"pointer",
+										"height":"46px",
+										'background-color':'#f5f5f5'
+									})
+									.appendTo($("#userList"));
+							
+							if (friend.autograph == null) {
+								liEle.attr("friend_autograph","该用户很懒什么也没有留下！");
+							} else {
+									liEle.attr("friend_autograph",friend.autograph);
+							}
+	
+							/* .attr("friend_autograph",friend.autograph) */
+	
+							/* var div1Ele = $("<div><div>").attr("name",
+							"div1").appendTo(liEle); */
+							var avatarEle = $("<div><div>");
+							$(avatarEle).css({"float" : "left"});
+							var imgEle = $("<img></img>")
+											.attr("src","data:image/jpeg;base64,"+ friend.avator);
+							$(imgEle).css({
+											"width" : "35px",
+											"height" : "35px"
+										});
+							avatarEle.append(imgEle);
+							avatarEle.appendTo(liEle);
+							var nemeEle = $("<div><div>").append(friendName)
+										.insertAfter(avatarEle);
+	
+							//添加有好友对应的聊天框
+							var chat_box_ele = $("<div> </div>")
+												.addClass("am-scrollable-vertical chatBox")
+												.attr("id",friend.userId)
+												.attr("friend_name_chatBox",friendName)
+												.css({
+													'border': '1px solid rgb(204, 204, 204)',
+												});
+	
+							var ul_ele = $("<ul></ul>")
+										.addClass("chat_content")
+										.addClass("am-comments-list am-comments-list-flip");
+							ul_ele.appendTo(chat_box_ele);
+							chat_box_ele.appendTo($("#all_chat_div"));
+							$(".chatBox").hide();
+						});
+						//console.log(friendsList)
+						//当一个信息用户上线时，如果该用户有上线用户的好友，好友列表显示在线
+						$.each( friendsList, function(index,item){ 
+							var mapUser = friends_map.get(item);
+							if(mapUser != undefined){
+								$("li[friend_name = '"+ mapUser.username+"']").css('background-color','white');
+							} 
+						    
+						});  
+					},
+	
+			});
+		});
 	
 </script>
-<%--白板 --%>
+
+
+<%-------------------------------------白板 --------------------------------------%>
 <script type="text/javascript">
 	initCanvas();
 	var lineColor = null;
 	var lineWidth = null;
+	var boardFlag = true;
+	
 	function initCanvas() {
 		var oC = document.getElementById('c1');
 		var oGC = oC.getContext('2d');
@@ -975,7 +1158,7 @@
 				var x = ev.clientX-oC.offsetLeft;
 		        var y = ev.clientY-oC.offsetTop;
 		        
-		        if($(".friend-title").is(":visible") && lineColor != null){
+		        if($(".friend-title").is(":visible") && lineColor != null  && boardFlag == true){
 			    	var obj = {
 				    	to : $("#friendName").text(),
 				    	msg : x + '_' + y,
@@ -994,6 +1177,7 @@
 		   		 }	
 			};
 			document.onmouseup = function() {
+				boardFlag = true;
 				var obj = {
 				    to : $("#friendName").text(),
 				    msg : "",

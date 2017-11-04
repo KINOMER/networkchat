@@ -55,7 +55,7 @@ public class FriendController {
 				
 				if(b){ 
 					friendService.addFriend(friendReal);
-					return Msg.success("添加好友成功！");
+					return Msg.success("添加好友成功!");
 				}else{
 					return Msg.fail("你和"+friendName+"已经是好友关系!");	
 				}

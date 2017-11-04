@@ -3,6 +3,7 @@ package com.hsu.netchat.socket;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -15,10 +16,17 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import org.apache.shiro.authc.UsernamePasswordToken;
+
+import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.google.gson.Gson;
 import com.hsu.netchat.bean.ChatMessage;
+import com.hsu.netchat.bean.ChatRecord;
 import com.hsu.netchat.bean.DrawBoardMessage;
 import com.hsu.netchat.bean.SingleChat;
+import com.hsu.netchat.bean.UserName;
+import com.hsu.netchat.service.ChatRecordService;
+import com.hsu.netchat.service.ChatRecordServiceImpl;
 
 
 @ServerEndpoint("/chatSocket")
@@ -28,6 +36,7 @@ public class ChatSocket {
 	private static Gson gson = new Gson();
 	//用于将用户名和session进行绑定
 	private static Map<String,Session> map = new HashMap<String,Session>();
+	private static List<String> userNameList = new ArrayList<String>();
 
 	@OnOpen
 	public void open(Session session){
@@ -40,7 +49,10 @@ public class ChatSocket {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}  
+
 		map.put(username, session);
+		userNameList.add(this.username);
+		broadcast(map,userNameList);
 	}
 
 	/**
@@ -51,14 +63,15 @@ public class ChatSocket {
 		SingleChat singleChat = gson.fromJson(msg, SingleChat.class);
 		ChatMessage chatMessage = null;
 		DrawBoardMessage drawBoardMessage = null;
-		
+
 		if(singleChat != null){
 			Integer type = singleChat.getType();
 			String to = singleChat.getTo();
+			ChatRecord chatRecord = null;
 			//和好友之间单聊信息
 			if(type == 1){
 				chatMessage = new ChatMessage();
-				
+
 				chatMessage.setContent(singleChat.getMsg());
 				chatMessage.setFrom(this.username);
 				chatMessage.setType(1);
@@ -73,12 +86,18 @@ public class ChatSocket {
 						e.printStackTrace();
 					}
 				}else{ //用户不在线时将好友发送的消息放在数据库中，在用户登录时获取信息
+					chatRecord = new ChatRecord();
+
+					chatRecord.setUserName(to);
+					chatRecord.setFriendName(this.username);
+					chatRecord.setChatRecord(singleChat.getMsg());
+
 					System.out.println(to+"不在线..........不要再说话了");
 				}
-				
+
 			}else if(type == 0) { //单个好友间的白板演示
 				drawBoardMessage = new DrawBoardMessage();
-				
+
 				drawBoardMessage.setContent(singleChat.getMsg());
 				drawBoardMessage.setFrom(this.username);
 				drawBoardMessage.setType(0);
@@ -112,7 +131,7 @@ public class ChatSocket {
 			}
 		}
 	}
-	
+
 	/**
 	 * 用户断开webSocket连接之后
 	 * @param session 用户的session
@@ -120,13 +139,15 @@ public class ChatSocket {
 	@OnClose
 	public  void close(Session session){
 		try{
+			userNameList.remove(this.username);
 			map.remove(this.username);
+			broadcast(map,userNameList);
 			System.out.println(this.username+"....下线了");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	
+
 	@OnError
 	public void error(Session session, Throwable t){
 		t.printStackTrace();
@@ -142,6 +163,25 @@ public class ChatSocket {
 			try {
 				ss.getBasicRemote().sendText(msg);
 			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	public void broadcast (Map<String,Session> map,List<String> userNameList){
+		Iterator<Map.Entry<String, Session>> entries = map.entrySet().iterator(); 
+
+		while (entries.hasNext()) { 
+			Map.Entry<String, Session> entry = entries.next(); 
+			Session to_singleSession = entry.getValue();
+			UserName username = new UserName();
+
+			username.setType(101);
+			username.setList(userNameList);
+			try {
+				to_singleSession.getBasicRemote().sendText(username.toJson());
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

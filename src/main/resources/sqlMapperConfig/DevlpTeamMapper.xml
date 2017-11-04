@@ -73,7 +73,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from d_team
+    from t_team
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,27 +84,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from d_team
+    from t_team
     where team = #{team,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from d_team
+    delete from t_team
     where team = #{team,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.hsu.netchat.bean.DevlpTeamExample">
-    delete from d_team
+    delete from t_team
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    insert into d_team (team, email, qq
+    insert into t_team (team, email, qq
       )
     values (#{team,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    insert into d_team
+    insert into t_team
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="team != null">
         team,
@@ -129,13 +129,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.hsu.netchat.bean.DevlpTeamExample" resultType="java.lang.Long">
-    select count(*) from d_team
+    select count(*) from t_team
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update d_team
+    update t_team
     <set>
       <if test="record.team != null">
         team = #{record.team,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update d_team
+    update t_team
     set team = #{record.team,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR}
@@ -161,7 +161,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    update d_team
+    update t_team
     <set>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
     where team = #{team,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    update d_team
+    update t_team
     set email = #{email,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR}
     where team = #{team,jdbcType=VARCHAR}

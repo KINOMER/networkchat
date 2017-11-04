@@ -46,7 +46,8 @@
 		<!-- 指定每个表的生成策略 -->
 		<!--  <table tableName="t_user" domainObjectName="User"></table>-->
 		<!-- <table tableName="t_anno" domainObjectName="Anno"></table> -->
-		<!-- <table tableName="d_team" domainObjectName="DevlpTeam"></table> -->
-		<table tableName="t_friend" domainObjectName="Friend"></table>
+		<!-- <table tableName="t_team" domainObjectName="DevlpTeam"></table> -->
+		<!-- <table tableName="t_friend" domainObjectName="Friend"></table> -->
+		<table tableName="t_record" domainObjectName="ChatRecord"></table>
 	</context>
 </generatorConfiguration>

@@ -42,7 +42,7 @@
 	<!-- 4.配置扫描器，扫描所有的mapper接口 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<!-- 这里的value必须写包的全路径名，否则会报错 -->
-		<property name="basePackage" value="com.hsu.netchat.dao"></property>
+		<property name="basePackage" value="com.hsu.netchat.dao"/>
 	</bean>
 
 	<!-- 5.配置事务管理器 -->

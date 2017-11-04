@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hsu.netchat.dao.DevlpTeamMapper">
-  <resultMap id="BaseResultMap" type="com.hsu.netchat.bean.DevlpTeam">
-    <id column="team" jdbcType="VARCHAR" property="team" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="qq" jdbcType="VARCHAR" property="qq" />
+<mapper namespace="com.hsu.netchat.dao.ChatRecordMapper">
+  <resultMap id="BaseResultMap" type="com.hsu.netchat.bean.ChatRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="friend_name" jdbcType="VARCHAR" property="friendName" />
+    <result column="chat_record" jdbcType="VARCHAR" property="chatRecord" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    team, email, qq
+    id, user_name, friend_name, chat_record
   </sql>
-  <select id="selectByExample" parameterType="com.hsu.netchat.bean.DevlpTeamExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.hsu.netchat.bean.ChatRecordExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_team
+    from t_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -81,70 +82,79 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from t_team
-    where team = #{team,jdbcType=VARCHAR}
+    from t_record
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from t_team
-    where team = #{team,jdbcType=VARCHAR}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_record
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hsu.netchat.bean.DevlpTeamExample">
-    delete from t_team
+  <delete id="deleteByExample" parameterType="com.hsu.netchat.bean.ChatRecordExample">
+    delete from t_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    insert into t_team (team, email, qq
-      )
-    values (#{team,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.hsu.netchat.bean.ChatRecord">
+    insert into t_record (id, user_name, friend_name, 
+      chat_record)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{friendName,jdbcType=VARCHAR}, 
+      #{chatRecord,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    insert into t_team
+  <insert id="insertSelective" parameterType="com.hsu.netchat.bean.ChatRecord">
+    insert into t_record
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="team != null">
-        team,
+      <if test="id != null">
+        id,
       </if>
-      <if test="email != null">
-        email,
+      <if test="userName != null">
+        user_name,
       </if>
-      <if test="qq != null">
-        qq,
+      <if test="friendName != null">
+        friend_name,
+      </if>
+      <if test="chatRecord != null">
+        chat_record,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="team != null">
-        #{team,jdbcType=VARCHAR},
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
       </if>
-      <if test="email != null">
-        #{email,jdbcType=VARCHAR},
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="qq != null">
-        #{qq,jdbcType=VARCHAR},
+      <if test="friendName != null">
+        #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="chatRecord != null">
+        #{chatRecord,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hsu.netchat.bean.DevlpTeamExample" resultType="java.lang.Long">
-    select count(*) from t_team
+  <select id="countByExample" parameterType="com.hsu.netchat.bean.ChatRecordExample" resultType="java.lang.Long">
+    select count(*) from t_record
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update t_team
+    update t_record
     <set>
-      <if test="record.team != null">
-        team = #{record.team,jdbcType=VARCHAR},
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.qq != null">
-        qq = #{record.qq,jdbcType=VARCHAR},
+      <if test="record.friendName != null">
+        friend_name = #{record.friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chatRecord != null">
+        chat_record = #{record.chatRecord,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update t_team
-    set team = #{record.team,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      qq = #{record.qq,jdbcType=VARCHAR}
+    update t_record
+    set id = #{record.id,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      friend_name = #{record.friendName,jdbcType=VARCHAR},
+      chat_record = #{record.chatRecord,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    update t_team
+  <update id="updateByPrimaryKeySelective" parameterType="com.hsu.netchat.bean.ChatRecord">
+    update t_record
     <set>
-      <if test="email != null">
-        email = #{email,jdbcType=VARCHAR},
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="qq != null">
-        qq = #{qq,jdbcType=VARCHAR},
+      <if test="friendName != null">
+        friend_name = #{friendName,jdbcType=VARCHAR},
+      </if>
+      <if test="chatRecord != null">
+        chat_record = #{chatRecord,jdbcType=VARCHAR},
       </if>
     </set>
-    where team = #{team,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hsu.netchat.bean.DevlpTeam">
-    update t_team
-    set email = #{email,jdbcType=VARCHAR},
-      qq = #{qq,jdbcType=VARCHAR}
-    where team = #{team,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.hsu.netchat.bean.ChatRecord">
+    update t_record
+    set user_name = #{userName,jdbcType=VARCHAR},
+      friend_name = #{friendName,jdbcType=VARCHAR},
+      chat_record = #{chatRecord,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
