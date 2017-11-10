@@ -26,3 +26,4 @@
 	href="${APP_PATH }/static/plugins/sketchpad/css/sketchpad.css">
 <link rel="stylesheet" href="${APP_PATH }/static/css/common.css" />
 <link rel="stylesheet" href="${APP_PATH }/static/css/reset.css" />
+<link rel="stylesheet" href="${APP_PATH }/static/css/index.css" />

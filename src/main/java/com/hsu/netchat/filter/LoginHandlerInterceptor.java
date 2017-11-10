@@ -29,26 +29,13 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 			annoMsg = annoService.getAnnoMsg();
 			request.getSession().setAttribute("anno", annoMsg.get(0).getAnno());
 		}
-		 
-		 /*if(requestURI.indexOf("index")>0){
-			System.out.println("----------登陆拦截----------");
-			User user = (User) session.getAttribute("userInfo");
-			
-			if(user == null){
-				request.getRequestDispatcher("/forward.jsp").forward(request, response);
-				return false;
-			}else{
-				
-				return true;
-			}
-		} */
+		
 		return true;
 	}
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 

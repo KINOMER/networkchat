@@ -16,17 +16,11 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.apache.shiro.authc.UsernamePasswordToken;
-
-import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.google.gson.Gson;
 import com.hsu.netchat.bean.ChatMessage;
-import com.hsu.netchat.bean.ChatRecord;
 import com.hsu.netchat.bean.DrawBoardMessage;
 import com.hsu.netchat.bean.SingleChat;
 import com.hsu.netchat.bean.UserName;
-import com.hsu.netchat.service.ChatRecordService;
-import com.hsu.netchat.service.ChatRecordServiceImpl;
 
 
 @ServerEndpoint("/chatSocket")
@@ -67,7 +61,6 @@ public class ChatSocket {
 		if(singleChat != null){
 			Integer type = singleChat.getType();
 			String to = singleChat.getTo();
-			ChatRecord chatRecord = null;
 			//和好友之间单聊信息
 			if(type == 1){
 				chatMessage = new ChatMessage();
@@ -85,13 +78,7 @@ public class ChatSocket {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}else{ //用户不在线时将好友发送的消息放在数据库中，在用户登录时获取信息
-					chatRecord = new ChatRecord();
-
-					chatRecord.setUserName(to);
-					chatRecord.setFriendName(this.username);
-					chatRecord.setChatRecord(singleChat.getMsg());
-
+				}else{
 					System.out.println(to+"不在线..........不要再说话了");
 				}
 

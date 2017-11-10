@@ -1,0 +1,176 @@
+.sketchpad {
+	border: 1px solid #000;
+}
+
+.notice {
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 10px;
+	color: #fff;
+	text-align: center;
+	background-color: #fd1100;
+	border-radius: 50%;
+	position: absolute;
+	right: 10%;
+	top: 30%;
+}
+
+.chatBox {
+	height: 478px;
+	border: 1px solid rgb(204, 204, 204);
+
+}
+.chat-list{
+	margin-left : -30px;
+}
+.comm_li {
+	width: 400px;
+	float: left;
+	line-height: 20px;
+	margin-top: 3px;
+}
+
+.comm_li_2 {
+	width: 400px;
+	float: right;
+	line-height: 20px;
+	margin-top: 3px;
+}
+.warn-chat-noone,.userInfo{
+	height: 20px;
+	margin-top : 8px;
+	text-align: center;
+	font-size:18px;
+}
+#user_avator,#friendAvatar{
+	height: 100px;
+	width: 100px;
+}
+.info-margin-1{
+	margin-top: 10%;
+}
+.info-margin-2{
+	margin-top: 3%;
+}
+.sendMsg_btn{
+	background-color: #1189c5;
+	color: #fff;
+	width:200px; 
+	height:40px;    
+	border-radius: 11px; 
+}
+#friendName_detail{
+	font-size: 25px;
+}
+.emotion{
+	width:3%;
+}
+.aboutUs-detail-msg{
+	margin-left: 23%;
+}
+.aboutUs-detail{
+	margin-left: 20%;
+}
+.aboutUs-div{
+	margin-top: 2%;
+}
+.list-msg{
+	margin-top: 5%;
+}
+.send-text,.chatBox,.chatBox_demo{
+	resize: none;
+	border-style: none;
+	width: 101.9%;
+}
+#send_text_btn{
+	width: 16%;
+	margin-left: 660px; 
+}
+#addFriendChat{
+	width: 30px;
+	height: 30px;
+}
+#canvas{
+	height: 512px; 
+	width: 100%;
+	border: 1px solid; 
+	cursor:crosshair;
+	background-color: white;
+	border-color: rgb(204, 204, 204);
+	border-top-width: 0px;
+}
+#colorList{
+	margin: 4px; 
+	border-radius: 3px;
+}
+.color-box{
+	margin: 3px; 
+	width: 23px; 
+	height: 23px; 
+    float: left; 
+    border: 2px solid #000;
+}
+.width-box{
+	text-align: center; 
+	margin: 3px;
+	width: 23px;
+	height: 23px; 
+	float: left;
+	border : 2px solid #000;
+}
+.bubble{  
+    max-width: 330px;  
+    position: relative;  
+    line-height: 30px;  
+    padding-left: 10px;  
+    padding-top: 3px;  
+    padding-bottom: 3px;  
+    border-radius: 7px;  
+    margin-top: 10px;  
+    padding-right: 10px;  
+    display: inline-block;  
+}  
+.leftBubble{  
+    position: relative;  
+    margin-left: 15px;  
+    border: 1px solid rgb(204, 204, 204);  
+    background-color: #f5f5f5;  
+}  
+.leftBubble .bottomLevel{  
+    position: absolute;  
+    top: 10px;  
+    left: -10px;  
+    border-top: 10px solid rgb(204, 204, 204);  
+    border-left: 10px solid transparent;  
+}  
+.leftBubble .topLevel{  
+    position: absolute;  
+    top: 11px;  
+    left: -8px;  
+    border-top: 10px solid #f5f5f5;  
+    border-left: 10px solid transparent;  
+    z-index: 100;  
+}  
+.rightBubble{  
+    position: relative;  
+    margin-right: 15px;  
+    float: right;  
+    background-color: #b6d6e6;
+    border: 1px solid #b6d6e6;  
+}  
+.rightBubble .bottomLevel{  
+    position: absolute;  
+    top: 12px;  
+    right: -10px;  
+    border-bottom: 10px solid #b6d6e6;  
+    border-right: 10px solid transparent;  
+}  
+.rightBubble .topLevel{  
+    position: absolute;  
+    top: 11px;  
+    right: -8px;  
+    border-bottom: 10px solid #b6d6e6;  
+    border-right: 10px solid transparent;  
+    z-index: 100;  
+}  

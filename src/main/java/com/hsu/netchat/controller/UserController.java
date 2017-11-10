@@ -135,16 +135,6 @@ public class UserController {
 
 	
 	/**
-	 * 如果该浏览器已经有用户登录，跳转到错误页面进行提示
-	 * @return
-	 */
-	@RequestMapping("/forwardErrorPage")
-	public String errorPage(){
-		
-		return "errorPage";
-	}
-	
-	/**
 	 * 更新用户信息
 	 * @param user
 	 * @param request
@@ -216,6 +206,7 @@ public class UserController {
 			e.printStackTrace();  
 		}
 	}
+	
 	
 }
 

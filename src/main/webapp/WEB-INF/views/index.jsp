@@ -9,7 +9,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>WeChat在线聊天室</title>
+<title>networkchat</title>
 
 <meta name="description" content="">
 <meta name="keywords" content="index">
@@ -18,181 +18,6 @@
 <meta http-equiv="Cache-Control" content="no-siteapp" />
 <jsp:include page="/WEB-INF/views/css.jsp"></jsp:include>
 </head>
-<style type="text/css">
-.sketchpad {
-	border: 1px solid #000;
-}
-
-.notice {
-	width: 20px;
-	height: 20px;
-	line-height: 20px;
-	font-size: 10px;
-	color: #fff;
-	text-align: center;
-	background-color: #0f88eb;
-	border-radius: 50%;
-	position: absolute;
-	right: -10px;
-	top: -10px;
-}
-
-.chatBox {
-	height: 480px;
-	border: 1px solid rgb(204, 204, 204);
-	
-}
-
-.comm_li {
-	width: 400px;
-	float: left;
-	line-height: 20px;
-	margin-top: 3px;
-}
-
-.comm_li_2 {
-	width: 400px;
-	float: right;
-	line-height: 20px;
-	margin-top: 3px;
-}
-.warn-chat-noone,.userInfo{
-	height: 20px;
-	margin-top : 8px;
-	text-align: center;
-	font-size:18px;
-}
-#user_avator,#friendAvatar{
-	height: 100px;
-	width: 100px;
-}
-.info-margin-1{
-	margin-top: 10%;
-}
-.info-margin-2{
-	margin-top: 3%;
-}
-.sendMsg_btn{
-	background-color: #1189c5;
-	color: #fff;
-	width:200px; 
-	height:40px;    
-	border-radius: 11px; 
-}
-#friendName_detail{
-	font-size: 25px;
-}
-.emotion{
-	width:3%;
-}
-.aboutUs-detail-msg{
-	margin-left: 23%;
-}
-.aboutUs-detail{
-	margin-left: 20%;
-}
-.aboutUs-div{
-	margin-top: 2%;
-}
-.list-msg{
-	margin-top: 5%;
-}
-.send-text,.chatBox,.chatBox_demo{
-	resize: none;
-	border-style: none;
-}
-#send_text_btn{
-	width: 16%;
-	float: right;
-	
-}
-#addFriendChat{
-	width: 30px;
-	height: 30px;
-}
-#canvas{
-	height: 512px; 
-	width: 506px; 
-	border: 1px solid; 
-	cursor:crosshair;
-	background-color: white;
-	border-color: rgb(204, 204, 204);
-}
-#colorList{
-	margin: 4px; 
-	border-radius: 3px;
-}
-.color-box{
-	margin: 3px; 
-	width: 23px; 
-	height: 23px; 
-    float: left; 
-    border: 2px solid #000;
-}
-.width-box{
-	text-align: center; 
-	margin: 3px;
-	width: 23px;
-	height: 23px; 
-	float: left;
-	border : 2px solid #000;
-}
-.bubble{  
-    max-width: 330px;  
-    position: relative;  
-    line-height: 30px;  
-    padding-left: 10px;  
-    padding-top: 3px;  
-    padding-bottom: 3px;  
-    border-radius: 7px;  
-    margin-top: 10px;  
-    padding-right: 10px;  
-    display: inline-block;  
-}  
-.leftBubble{  
-    position: relative;  
-    margin-left: 15px;  
-    border: 1px solid rgb(204, 204, 204);  
-    background-color: #f5f5f5;  
-}  
-.leftBubble .bottomLevel{  
-    position: absolute;  
-    top: 10px;  
-    left: -10px;  
-    border-top: 10px solid rgb(204, 204, 204);  
-    border-left: 10px solid transparent;  
-}  
-.leftBubble .topLevel{  
-    position: absolute;  
-    top: 11px;  
-    left: -8px;  
-    border-top: 10px solid #f5f5f5;  
-    border-left: 10px solid transparent;  
-    z-index: 100;  
-}  
-.rightBubble{  
-    position: relative;  
-    margin-right: 15px;  
-    float: right;  
-    background-color: #b6d6e6;
-    border: 1px solid #b6d6e6;  
-}  
-.rightBubble .bottomLevel{  
-    position: absolute;  
-    top: 12px;  
-    right: -10px;  
-    border-bottom: 10px solid #b6d6e6;  
-    border-right: 10px solid transparent;  
-}  
-.rightBubble .topLevel{  
-    position: absolute;  
-    top: 11px;  
-    right: -8px;  
-    border-bottom: 10px solid #b6d6e6;  
-    border-right: 10px solid transparent;  
-    z-index: 100;  
-}  
-</style>
 <body>
 	<header class="am-topbar am-topbar-inverse admin-header">
 		<div class="am-topbar-brand">
@@ -213,7 +38,7 @@
 		</div>
 	</header>
 
-	<%-------------------------------------------链接展示栏 -----------------------------------------------------%>
+	<!-------------------------------------------链接展示栏 ----------------------------------------------------->
 	<div class="am-cf admin-main">
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
@@ -247,7 +72,7 @@
 							class="glyphicon glyphicon-home"></span> 帮助</a></li>
 					<li><a href="javascript:void(0);" class="aboutUsInfo"><span
 							class="glyphicon glyphicon-link"></span> 关于</a></li>
-					<li><a href="${APP_PATH }/logout"><span
+					<li><a href="${APP_PATH }/logout" class="logout"><span  
 							class="glyphicon glyphicon-off"></span> 注销</a></li>
 				</ul>
 
@@ -280,7 +105,7 @@
 			</div>
 		</div>
 
-		<%-------------------------------------------信息交流展示 ------------------------------------------------------%>
+		<!-------------------------------------------信息交流展示 ------------------------------------------------------>
 		<div class="admin-content">
 			<div class="admin-content-body">
 				<div style="border: 1px solid #ccc;" class="am-cf am-padding">
@@ -302,9 +127,9 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-md-2">
-		<%---------------------------------------------------- 列表区 ----------------------------------%>
-							<div class="am-panel am-panel-default"
-								style="float: right; width: 100%;">
+		<!---------------------------------------------------- 列表区 ---------------------------------->
+							<div class="am-panel"
+								style="float: right; width: 106%;">
 								<div class="am-panel-hd">
 									<h3 class="am-panel-title">[ 好友列表 ]</h3>
 								</div>
@@ -314,10 +139,10 @@
 							</div>
 						</div>
 
-		<%---------------------------------- 聊天区 ---------------------------------------------------%>
+		<!---------------------------------- 聊天区 --------------------------------------------------->
 						<div class="col-md-6 chat-list">
 							<div class="friend-title"
-								style="display: none; margin-top: 8px; text-align: center;">
+								style="display: none; margin-top: 7px; margin-bottom: 3px; text-align: center;">
 								<%-- <img id="addFriendChat" src="${APP_PATH }/static/pic/add-friend.png"> --%>
 								<span id="friendName"></span>
 							</div>
@@ -325,7 +150,8 @@
 							<div id="all_chat_div">
 
 								<div id="0" class="am-scrollable-vertical chatBox_demo"
-									style="height: 512px; border: 1px solid rgb(204, 204, 204);">
+									style="height: 512px; border-left: 1px solid rgb(204, 204, 204);
+									border-bottom: 1px solid rgb(204, 204, 204); border-top:0px;">
 									<ul id="chatInfo"
 										class="am-comments-list am-comments-list-flip">
 										<li class="warn-chat-noone">未选择聊天</li>
@@ -335,8 +161,8 @@
 									<div class="userInfo" style="display: none;">
 										<span>详细信息</span>
 									</div>
-									<hr>
-			<%--------------------------------------用户个人信息 ---------------------------------------%>
+									<!-- <hr> -->
+			<!--------------------------------------用户个人信息 --------------------------------------->
 									<div class="am-tabs am-margin" data-am-tabs id="userInfo"
 										style="display: none;">
 
@@ -375,7 +201,7 @@
 							                               	${userInfo.autograph}
 							                            </c:if>
 												</div>
-			<%----------------------------------------------展示用户头像信息 --------------------------------------------------%>
+			<!----------------------------------------------展示用户头像信息 -------------------------------------------------->
 												<div class="am-panel-bd">
 													<div>
 														<div class="am-u-md-4"
@@ -401,7 +227,7 @@
 
 									</div>
 
-			<%-----------------------------------------用户好友信息的div ---------------------------------------------------%>
+			<!-----------------------------------------用户好友信息的div --------------------------------------------------->
 									<div class="am-tabs am-margin" data-am-tabs id="friendInfo"
 										style="display: none; text-align: center;">
 										<div class="info-margin-1">
@@ -422,7 +248,7 @@
 								</div>
 							</div>
 
-		<%-------------------------------------------表情与发送信息 -----------------------------------------------%>
+		<!-------------------------------------------表情与发送信息 ----------------------------------------------->
 							<div id="msg_div" style="display: none;">
 								<div id="emoticon_div" class="emotion">
 									<img src="${APP_PATH}/static/pic/smile.png"
@@ -438,10 +264,10 @@
 
 							<!-- </div> -->
 						</div>
-		<%-- ------------------------------------ 白板区 -----------------------------------------------%>
-						<div style="margin-left: 67.5%;">
+		<!-- ------------------------------------ 白板区 ----------------------------------------------->
+						<div style="margin-left: 64.8%;">
 							<div id='canvas'>
-								<canvas id="c1" width="506" height="512">  
+								<canvas id="c1" width="580%" height="512">  
 								</canvas>
 							</div>
 
@@ -461,7 +287,94 @@
 </body>
 <jsp:include page="/WEB-INF/views/js.jsp"></jsp:include>
 
-<%-----------------------修改用户信息前 回显用户数据--查看用户个人信息 修改头像信息-------------------------------%>
+<!-- -----------------------------------加载页面请求用户到好友列表  ----------------------------- -->
+<script type="text/javascript">
+	//设置一个map用户全局存放好友信息
+	var friends_map = new Map([ [ "key", "value" ] ]);
+	//页面加载时发送ajax请求，请求到用户的好友信息
+	$(document).ready(function() {
+		$.ajax({
+				/*url : "${APP_PATH}/getFriendsList",*/
+				url : "getFriendsList",
+				type : 'post',
+				success : function(data) {
+				//页面加载请求到好友列表，遍历显示添加在好友列表里
+				$.each(
+					data.map.friends,
+					function(friendName,friend) {
+						friends_map.set(friendName,friend);
+						//var imgEle = $("<img></img>").attr("src","data:image/jpeg;base64,"+friend.avator).appendTo($("#userList"));
+						var liEle = $("<li> </li>")
+									.attr(
+									"name","liList")
+									.attr(	"friend_name",friendName)
+									.attr(	"friend_id",friend.userId)
+									.attr("status","0")
+									.addClass("friend")
+									.css({
+										"cursor":"pointer",
+										"height":"46px",
+										'background-color':'#f5f5f5'
+									})
+									.appendTo($("#userList"));
+							
+							if (friend.autograph == null) {
+								liEle.attr("friend_autograph","该用户很懒什么也没有留下！");
+							} else {
+									liEle.attr("friend_autograph",friend.autograph);
+							}
+	
+							/* .attr("friend_autograph",friend.autograph) */
+	
+							/* var div1Ele = $("<div><div>").attr("name",
+							"div1").appendTo(liEle); */
+							var avatarEle = $("<div><div>");
+							$(avatarEle).css({"float" : "left"});
+							var imgEle = $("<img></img>")
+											.attr("src","data:image/jpeg;base64,"+ friend.avator);
+							$(imgEle).css({
+											"width" : "35px",
+											"height" : "35px"
+										});
+							avatarEle.append(imgEle);
+							avatarEle.appendTo(liEle);
+							var nemeEle = $("<div><div>").append(friendName)
+										.insertAfter(avatarEle);
+	
+							//添加有好友对应的聊天框
+							var chat_box_ele = $("<div> </div>")
+												.addClass("am-scrollable-vertical chatBox")
+												.attr("id",friend.userId)
+												.attr("friend_name_chatBox",friendName)
+												.css({
+													'border': '1px solid rgb(204, 204, 204)',
+												});
+	
+							var ul_ele = $("<ul></ul>")
+										.addClass("chat_content")
+										.addClass("am-comments-list am-comments-list-flip");
+							ul_ele.appendTo(chat_box_ele);
+							chat_box_ele.appendTo($("#all_chat_div"));
+							$(".chatBox").hide();
+						});
+						//console.log(friendsList)
+						//当一个信息用户上线时，如果该用户有上线用户的好友，好友列表显示在线
+						$.each( friendsList, function(index,item){ 
+							var mapUser = friends_map.get(item);
+							if(mapUser != undefined){
+								$("li[friend_name = '"+ mapUser.username+"']").css('background-color','white');
+								$("li[friend_name = '"+ mapUser.username+"']").attr('status','1');
+							} 
+						    
+						});  
+					},
+	
+			});
+		});
+	
+</script>
+
+<!-----------------------修改用户信息前 回显用户数据--查看用户个人信息 修改头像信息------------------------------->
 <script type="text/javascript">
 	//用户点击修改信息连接时显示对应的信息修改页面
 	$(function(){
@@ -652,6 +565,7 @@
 		}
 	}
 </script>
+
 <!---------------------------- 用户添加好友信息时 ------------------------------------------------------>
 <script type="text/javascript">
 
@@ -688,6 +602,7 @@
 	window.onload = connect;
 	var username = "${userInfo.username}";
 	var friendsList = null;
+	var flag = true;  //页面通知的标记
 	function connect() {
 	
 		//将用户信息隐藏，再点击查看信息时再显示
@@ -823,18 +738,29 @@
 		function sendContent(){
 			var to_friend = $("#friendName").text();
 			var to_friend_id_demo = friends_map.get(to_friend).userId;
-			//构建json数据，发送给好友，type为1 时表示私发消息
-			sendMsg = $("#send_text").val();
+			var friendLiEle = $("[friend_name='"+to_friend+"']");
+			var friendStatus = friendLiEle.attr("status");  //获取用户在线状态，如果不在线将消息存放在数据库中
+			sendMsg = $("#send_text").val();       
 			
-			if(sendMsg != null && sendMsg != ''){
-				var obj = {
-						to : to_friend,
-						msg : sendMsg,
-						type : 1
+			if(sendMsg != null && sendMsg != ''){        
+				
+				if(friendStatus ==1){    //用户在线时构建Json数据，将消息同步给好友
+					var obj = {
+							to : to_friend,
+							msg : sendMsg,
+							type : 1
 					}
 					//将发送的json数据转成字符串
 					var str = JSON.stringify(obj);
 					ws.send(str);
+				}else{  
+					
+					var friend_avatar = friends_map.get(to_friend).avator;
+					//桌面通知提醒
+					notice(to_friend , to_friend+"不在线，请稍后联系！" , "data:image/jpeg;base64,"
+								+ friend_avatar);//用户不在线时，进行桌面通知提醒
+				}
+				
 					//将发送的信息添加在对应的聊天框内
 					//根据对应的好友id找到没有隐藏的聊天框
 					var chatContent_ele = $("#" + to_friend_id_demo);
@@ -868,7 +794,7 @@
 					});
 					div_avatar_ele.css({
 						'float' : 'right',
-						'margin-right' : '15px',
+						'margin-right' : '8px',
 					});
 
 					img_avatar_ele.appendTo(div_avatar_ele);
@@ -893,7 +819,6 @@
 		//获得发送消息好友的名称
 		var from_friend = null;
 		var chat_msg = null;
-		var flag = true;  //页面通知的标记
 		$("#desktop-notification").click(function(){
 			if(flag){
 				flag = false;
@@ -916,12 +841,14 @@
 			
 			if(type == 101){
 				$("#userList > li").css("background-color","#f5f5f5");
+				$("#userList > li").attr("status","0");
 				friendsList = result.list;
 				//当一个信息用户上线时，如果该用户有上线用户的好友，好友列表显示在线(防止用户已经在线不能及时刷新)
 				$.each(result.list, function(index,item){ 
 					var mapUser = friends_map.get(item);
 					if(mapUser != undefined){
 						$("li[friend_name = '"+ mapUser.username+"']").css('background-color','white');
+						$("li[friend_name = '"+ mapUser.username+"']").attr("status","1");
 					} 
 				    
 				});  
@@ -942,7 +869,7 @@
 
 				div_avatar_ele.css({
 					'float' : 'left',
-					'margin-left' : '15px',
+					'margin-left' : '8px',
 				});
 				div_content_ele.css({
 					'float' : 'left',
@@ -997,27 +924,6 @@
 						+ friend_avatar);
 			}
 			
-			function notice(title , body , icon) {
-				//判断页面通知标记，为真时通知
-				if(flag){
-					var notification = new Notification(title,{
-					 	   body:body,
-					       icon:icon,
-					       tag:"1",
-					});
-				   //设置桌面通知的时间量，两秒后关闭通知
-					notification.onshow = function () {
-				    	setTimeout(function () {
-						        notification.close();
-						    }, 2000);
-					}
-					notification.onclick = function(){
-						notification.close();
-					}
-				}
-				
-			}
-			
 			//白板演示,展示给好友
 			if(type == 0){
 				boardFlag = false;
@@ -1045,95 +951,30 @@
 		};
 	}
 	
-</script>
-<!-- -----------------------------------加载页面请求用户到好友列表  ----------------------------- -->
-<script type="text/javascript">
-	//设置一个map用户全局存放好友信息
-	var friends_map = new Map([ [ "key", "value" ] ]);
-	//页面加载时发送ajax请求，请求到用户的好友信息
-	$(document).ready(function() {
-		$.ajax({
-				/*url : "${APP_PATH}/getFriendsList",*/
-				url : "getFriendsList",
-				type : 'post',
-				success : function(data) {
-				console.log(data)
-				//页面加载请求到好友列表，遍历显示添加在好友列表里
-				$.each(
-					data.map.friends,
-					function(friendName,friend) {
-						friends_map.set(friendName,friend);
-						//var imgEle = $("<img></img>").attr("src","data:image/jpeg;base64,"+friend.avator).appendTo($("#userList"));
-						var liEle = $("<li> </li>")
-									.attr(
-									"name","liList")
-									.attr(	"friend_name",friendName)
-									.attr(	"friend_id",friend.userId)
-									.addClass("friend")
-									.css({
-										"cursor":"pointer",
-										"height":"46px",
-										'background-color':'#f5f5f5'
-									})
-									.appendTo($("#userList"));
-							
-							if (friend.autograph == null) {
-								liEle.attr("friend_autograph","该用户很懒什么也没有留下！");
-							} else {
-									liEle.attr("friend_autograph",friend.autograph);
-							}
-	
-							/* .attr("friend_autograph",friend.autograph) */
-	
-							/* var div1Ele = $("<div><div>").attr("name",
-							"div1").appendTo(liEle); */
-							var avatarEle = $("<div><div>");
-							$(avatarEle).css({"float" : "left"});
-							var imgEle = $("<img></img>")
-											.attr("src","data:image/jpeg;base64,"+ friend.avator);
-							$(imgEle).css({
-											"width" : "35px",
-											"height" : "35px"
-										});
-							avatarEle.append(imgEle);
-							avatarEle.appendTo(liEle);
-							var nemeEle = $("<div><div>").append(friendName)
-										.insertAfter(avatarEle);
-	
-							//添加有好友对应的聊天框
-							var chat_box_ele = $("<div> </div>")
-												.addClass("am-scrollable-vertical chatBox")
-												.attr("id",friend.userId)
-												.attr("friend_name_chatBox",friendName)
-												.css({
-													'border': '1px solid rgb(204, 204, 204)',
-												});
-	
-							var ul_ele = $("<ul></ul>")
-										.addClass("chat_content")
-										.addClass("am-comments-list am-comments-list-flip");
-							ul_ele.appendTo(chat_box_ele);
-							chat_box_ele.appendTo($("#all_chat_div"));
-							$(".chatBox").hide();
-						});
-						//console.log(friendsList)
-						//当一个信息用户上线时，如果该用户有上线用户的好友，好友列表显示在线
-						$.each( friendsList, function(index,item){ 
-							var mapUser = friends_map.get(item);
-							if(mapUser != undefined){
-								$("li[friend_name = '"+ mapUser.username+"']").css('background-color','white');
-							} 
-						    
-						});  
-					},
-	
+	function notice(title , body , icon) {
+		//判断页面通知标记，为真时通知
+		if(flag){
+			var notification = new Notification(title,{
+			 	   body:body,
+			       icon:icon,
+			       tag:"1",
 			});
-		});
+		   //设置桌面通知的时间量，两秒后关闭通知
+			notification.onshow = function () {
+		    	setTimeout(function () {
+				        notification.close();
+				    }, 2000);
+			}
+			notification.onclick = function(){
+				notification.close();
+			}
+		}
+		
+	}
 	
 </script>
 
-
-<%-------------------------------------白板 --------------------------------------%>
+<!-------------------------------------白板 -------------------------------------->
 <script type="text/javascript">
 	initCanvas();
 	var lineColor = null;
@@ -1235,7 +1076,7 @@
       }
       
       //白板划线浓度选择
-      var availableThicknesses = [1,2, 3, 5, 8,10, 16, 28, 50];
+      var availableThicknesses = [1,2, 3, 5, 8,10, 16, 22, 28 ,40, 50];
       
       var thicknessContainersBox = document.createElement("div");
       $("#boardList").append(thicknessContainersBox);
@@ -1267,12 +1108,10 @@
       }
 </script>
 
-
 <script type="text/javascript">
 	 window.addEventListener('beforeunload', function(event) {
-		ws.close();
+		ws.close();           //页面离开前关闭socket连接
 	});
-	
 </script>
 
 
