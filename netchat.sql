@@ -1,15 +1,12 @@
 /*
 Navicat MySQL Data Transfer
-
 Source Server         : localhost_3306
 Source Server Version : 50716
 Source Host           : localhost:3306
 Source Database       : netchat
-
 Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
-
 Date: 2017-12-30 14:59:16
 */
 

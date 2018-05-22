@@ -6,12 +6,14 @@ public interface UserService {
 
 	/**
 	 * 更新用户信息
+	 * 
 	 * @param user
 	 */
 	void updateUserInfo(User user);
 
 	/**
 	 * 根据用户名获取获取用户所有信息
+	 * 
 	 * @param username
 	 * @return
 	 */
@@ -19,12 +21,14 @@ public interface UserService {
 
 	/**
 	 * 上传用户头像
+	 * 
 	 * @param user
 	 */
 	void uploadAdator(User user);
 	
 	/**
 	 * 根据用户的id获取用户信息
+	 * 
 	 * @param id 用户id
 	 * @return
 	 */
@@ -32,6 +36,7 @@ public interface UserService {
 	
 	/**
 	 * 用户注册
+	 * 
 	 * @param user
 	 */
 	void insertUser(User user);

@@ -53,16 +53,12 @@ ul {
   width: 260px;
   min-height: 100%;
   float: left;
-  border-right: 1px solid #cecece;
 }
 
 .admin-sidebar.am-active {
   z-index: 1600;
 }
 
-.admin-sidebar-list {
-  margin-bottom: 0;
-}
 
 .admin-sidebar-list li a {
   color: #5c5c5c;
@@ -76,13 +72,13 @@ ul {
 .admin-sidebar-sub {
   margin-top: 0;
   margin-bottom: 0;
-  box-shadow: 0 16px 8px -15px #e2e2e2 inset;
-  background: #ececec;
-  padding-left: 24px;
+  /*box-shadow: 0 16px 8px -15px #e2e2e2 inset;*/
+  background: #F6F6F6;
+  padding-left: 30px;
 }
 
 .admin-sidebar-sub li:first-child {
-  border-top: 1px solid #dedede;
+  border-top: 1px solid black;
 }
 
 .admin-sidebar-panel {
@@ -106,7 +102,8 @@ ul {
 .admin-sidebar {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: hidden;
+  border-right: solid 1px #555;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -115,6 +112,7 @@ ul {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
+  background-color: #F6F6F6;
 }
 
 .admin-content-footer {

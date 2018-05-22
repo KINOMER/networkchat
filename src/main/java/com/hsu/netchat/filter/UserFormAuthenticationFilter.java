@@ -22,9 +22,7 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 
 	@Autowired
 	private UserService userService;
-	/**
-	 * 表示拒绝访问时
-	 */
+	
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response, Object mappedValue)
 			throws Exception {
@@ -38,12 +36,11 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 				valistr2 = valistr2.toLowerCase();
 
 				//判断验证码，在验证码不正确时，直接返回json数据提示用户
-				if(!valistr1.equals(valistr2)){
+				if(! valistr1.equals(valistr2)){
 					//验证码不正确时，将错误信息通过shiroLoginFailure放在request域中
-					//httpServletRequest.setAttribute("shiroLoginFailure", "valistrError");
 					response.setCharacterEncoding("UTF-8");
 					PrintWriter out = response.getWriter();
-					out.println("{'msg':'验证码错误！'}");
+					out.println("{'msg':'×：验证码错误'}");
 
 					out.flush();
 					out.close();
@@ -62,14 +59,11 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 	@Override
 	protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
 			ServletResponse response) throws Exception {
-
 		
-		System.out.println("success login...");
 		PrintWriter out = response.getWriter();
 		//根据用户名获取数据库中用户的信息
 		User user = userService.getUserByUserName(token.getPrincipal().toString());
 		String rememberName = request.getParameter("rememberName");
-		
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
 		
@@ -84,12 +78,10 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 			}else{
 				//如果用户没有勾选记住用户名的选项则清空Cookie
 				Cookie [] cookies = httpServletRequest.getCookies();
-				
 				for(Cookie cookieTemp : cookies){
 					cookieTemp.setMaxAge(0);
 					cookieTemp.setPath("/");
 					httpServletResponse.addCookie(cookieTemp);
-
 				}
 			}
 			
@@ -97,13 +89,11 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 				((HttpServletRequest)request).getSession().setAttribute("username",user.getUsername());
 				((HttpServletRequest)request).getSession().setAttribute("password",user.getPassword());
 				((HttpServletRequest)request).getSession().setAttribute("userInfo",user);
-				
 				out.println("{'msg':'登陆成功！'}");
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
@@ -124,14 +114,15 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			String message = e.getClass().getSimpleName();
+			
 			if ("IncorrectCredentialsException".equals(message)) {
-				out.println("{'msg':'用户名或密码不正确！'}");
+				out.println("{'msg':'×：用户名或密码不正确'}");
 			} else if ("UnknownAccountException".equals(message)) {
-				out.println("{'msg':'用户名不存在！'}");
+				out.println("{'msg':'×：用户名不存在'}");
 			} else if("valistrError".equals(message)){
-				out.println("{'msg':'验证码错误！'}");
-			}else {
-				out.println("{'msg':'未知错误！'}");
+				out.println("{'msg':'×：验证码错误'}");
+			} else {
+				out.println("{'msg':'×：未知错误'}");
 			}
 			out.flush();
 			out.close();
@@ -139,7 +130,6 @@ public class UserFormAuthenticationFilter extends FormAuthenticationFilter {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 		return false;
 	}
 }

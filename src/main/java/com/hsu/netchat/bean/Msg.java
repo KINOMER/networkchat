@@ -7,12 +7,12 @@ import java.util.Map;
 public class Msg implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
-	//状态码，1表示成功，0表示失败
+	/** 状态码，1表示成功，0表示失败 */
 	private int code;
-	//提示信息
+	/** 提示信息 */
 	private String msg;
-	//用户返回给浏览器的数据
-	private Map<String,Object> map = new HashMap<>();
+	/** 用户返回给浏览器的数据 */
+	private Map<String,Object> map = new HashMap<String,Object>();
 	
 	public int getCode() {
 		return code;

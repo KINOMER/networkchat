@@ -30,9 +30,9 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		//从token中获取用户名
+		// 从token中获取用户名
 		String username = (String) token.getPrincipal();
-		//根据用户名查询数据库获取所有用户信息
+		// 根据用户名查询数据库获取所有用户信息
 		User user = userService.getUserByUserName(username);
 
 		if(user == null){
@@ -40,10 +40,10 @@ public class UserRealm extends AuthorizingRealm {
 		}
 		// 从数据库查询到密码
 		String password = user.getPassword();
-		//System.out.println(password+".....");
-		//将user设置simpleAuthenticationInfo
+		// 将user设置simpleAuthenticationInfo
 		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(
 				user, password, this.getName());
+		
 		return simpleAuthenticationInfo;
 	}
 

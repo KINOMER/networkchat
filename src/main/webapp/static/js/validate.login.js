@@ -1,7 +1,7 @@
 /**
  * 
  */
-function txtFocus(ele){
+/*function txtFocus(ele){
 		$("."+ele+"").css({
 			"border":"2px solid #0f88eb",
 		});
@@ -10,7 +10,7 @@ function txtFocus(ele){
 		$("."+ele+"").css({
 			"border":"1px solid white",
 		});
-	}
+	}*/
 	
 	$("#button").click(function(){
 		login();
@@ -25,11 +25,11 @@ function txtFocus(ele){
 		//alert(username+"   "+password+"   "+valistr+"   "+rememberMe	)
 		
 		if(username == ""){
-			warnMsg("请输入用户名！");
+			warnMsg("×：请输入用户名");
 		}else if(password == ""){
-			warnMsg("请输入用户密码！");
+			warnMsg("×：请输入用户密码");
 		}else if(valistr == ""){
-			warnMsg("请输入验证码！");
+			warnMsg("×：请输入验证码");
 		}else{
 			$("#warnMsg").html("").css({});
 			$.ajax({
@@ -57,8 +57,8 @@ function txtFocus(ele){
 	function warnMsg(msg){
 		$("#warnMsg").html("").css({});
 		$("#warnMsg").html(msg).css({
-			"color":"red",
 			"text-align":"center",
+			"color":"red"
 		});
 	}
 	

@@ -14,6 +14,7 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
 	<!-- 2.配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -22,6 +23,7 @@
 		<property name="prefix" value="/WEB-INF/views/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
 	<!-- 3.配置上传图片解析器 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -29,6 +31,7 @@
 		<!-- 指定所上传文件的总大小,单位字节。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
 		<property name="maxUploadSize" value="10240000" />
 	</bean>
+	
 	<!-- 两个标准配置 -->
 	<!-- 包含处理器映射器和处理器适配器，JSON数据处理器，JSR303校验...... -->
 	<mvc:annotation-driven />
@@ -39,7 +42,7 @@
 	<mvc:interceptors>
 			<!--拦截用户登录 -->
 		<mvc:interceptor>
-			<mvc:mapping path="/**" />
+			<mvc:mapping path="/**"/>
 			<bean class="com.hsu.netchat.filter.LoginHandlerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

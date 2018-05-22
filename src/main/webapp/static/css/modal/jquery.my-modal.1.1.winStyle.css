@@ -16,7 +16,7 @@
 	margin: 0 auto;
 	margin-top: -100%;
 	width: 600px;
-	background-color: #ffffff;
+	background-color: #F6F6F6;
 	box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
 }
 
@@ -33,12 +33,13 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+	background-color:#555555;
 }
 
 .m-modal-close {
 	position: absolute;
 	right: 3px;
-	top: 3px;
+	top: 2px;
 	display: inline-block;
 	font-size: 35px;
 	line-height: 20px;
@@ -52,16 +53,19 @@
 }
 
 .m-modal-close:hover {
-	color: #555;
+	color: white;
 }
 
 .m-middle {
 	padding: 10px 20px 10px 20px;
+	background-color: #F6F6F6;
+	color: #555555;
 }
 
 .m-bottom {
 	padding: 0 6px 6px;
 	overflow: hidden;
+	background-color: #F6F6F6;
 }
 
 .m-bottom button {
@@ -90,7 +94,7 @@
 .m-bottom button:active {
 	color: #333;
 	background-color: #d4d4d4;
-	border-color: #8c8c8
+	border-color: #8c8c8c;
 }
 
 .m-bottom .m-btn-sure {

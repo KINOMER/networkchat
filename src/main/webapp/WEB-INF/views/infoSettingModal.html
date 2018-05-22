@@ -1,83 +1,36 @@
 <div id="dialogBg"></div>
 <div id="dialog" class="animated">
-	<img class="dialogIco" width="50" height="50" src="" alt="" />
+	<img class="dialogIco img-circle" width="50" height="50" src="" alt="" />
 	<div class="dialogTop">
 		<span class="setInfo-showWarn" style="text-align:center;"> </span>
-		<a href="javascript:;" class="claseDialogBtn">关闭</a>
+		<a href="javascript:void (0)" class="claseDialogBtn close-usr-up">关闭</a>
 	</div>
-	<div style="margin-right:18%">
-
-		<form class="am-form am-form-horizontal" id="updateUserInfoForm">
-			<div class="am-form-group">
-				<label for="user-name" class="am-u-sm-3 am-form-label">用户名</label>
-				<div class="am-u-sm-9">
-					<input type="hidden" id="userId" name="userId"
-						value="${userInfo.userId }"> <input type="text"
-						id="username" name="username" value="${userInfo.username}"
-						disabled="disabled">
-					<!--<small>输入你的用户名</small>-->
-				</div>
+	<div>
+		<form id="updateUserInfoForm">
+			<div class="group-usr-ch" style="margin-top: 10px">
+                <input type="hidden" id="userId" name="userId" value="${userInfo.userId }">
+				<input type="text" id="username" name="username" value="${userInfo.username}" disabled="disabled" />
 			</div>
-
-			<div class="am-form-group">
-				<label for="sex" class="am-u-sm-3 am-form-label">性别</label>
-				<div class="col-sm-4">
-					<select class="form-control" id="sex" name="sex">
-						<option value="1" selected="selected">男</option>
-						<option value="0">女</option>
-					</select>
-				</div>
+			<div class="group-usr-ch">
+				<input type="text" id="sex" name="sex" value="${userInfo.sex}" placeholder="性别：0表示女，1表示男"/>
 			</div>
-
-
-			<div class="am-form-group">
-				<label for="age" class="am-u-sm-3 am-form-label">年龄</label>
-				<div class="am-u-sm-9">
-					<input type="number" id="age" name="age" min="1" max="120"
-						class="form-control" value="${userInfo.age}"
-						placeholder="这里输入你的年龄..."> <span class="help-block"></span>
-				</div>
+			<div class="group-usr-ch">
+				<input type="text" id="age" name="age" value="${userInfo.age}" placeholder="年龄"/>
 			</div>
-
-			<div class="am-form-group">
-				<label for="user-email" class="am-u-sm-3 am-form-label">Email</label>
-				<div class="am-u-sm-9">
-					<input type="email" value="${userInfo.email }" id="userEmail"
-						name="email" placeholder="输入你的Email"> <span
-						class="help-block"></span>
-				</div>
+			<div class="group-usr-ch">
+				<input type="text" id="phone" name="phone" value="${userInfo.phone}" placeholder="手机"/>
 			</div>
-
-			<div class="am-form-group">
-				<label for="user-phone" class="am-u-sm-3 am-form-label">手机号码</label>
-				<div class="am-u-sm-9">
-					<input type="tel" id="userPhone" value="${userInfo.phone }"
-						name="phone" placeholder="输入你的手机号码"> <span
-						class="help-block"></span>
-				</div>
+			<div class="group-usr-ch">
+				<input type="text" id="email" name="email" value="${userInfo.email}" placeholder="电邮"/>
 			</div>
-
-			<div class="am-form-group">
-				<label for="profile" class="am-u-sm-3 am-form-label">个人签名</label>
-				<div class="am-u-sm-9">
-					<textarea class="" id="profile" name="autograph" rows="2" >
-					</textarea>
-				</div>
+			<div class="group-usr-ch">
+				<textarea class="" id="profile" name="autograph" rows="2" placeholder="个性签名"></textarea>
 			</div>
-
-			<div class="am-form-group">
-				<label for="user-intro" class="am-u-sm-3 am-form-label">个人简介</label>
-				<div class="am-u-sm-9">
-					<textarea rows="5" id="userIntro" name="summary"></textarea>
-					<small>250字以内写出你的一生...</small>
-				</div>
+			<div class="group-usr-ch">
+				<textarea class="" id="userIntro" name="summary" rows="2" placeholder="250字内详细介绍你自己"></textarea>
 			</div>
-
-			<div class="am-form-group">
-				<div class="am-u-sm-9 am-u-sm-push-3" style="margin-left: 30%">
-					<button type="button" class="am-btn am-btn-primary"
-						id="user_update_btn">保存修改</button>
-				</div>
+			<div class="group-usr-ch">
+                <button type="button" class="usr-inf-up" id="user_update_btn">保存修改</button>
 			</div>
 		</form>
 	</div>

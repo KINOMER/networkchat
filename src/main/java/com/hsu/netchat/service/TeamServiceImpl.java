@@ -7,10 +7,11 @@ import com.hsu.netchat.bean.DevlpTeam;
 import com.hsu.netchat.dao.DevlpTeamMapper;
 
 @Service
-public class TeamServiceService implements TeamService {
+public class TeamServiceImpl implements TeamService {
 
 	@Autowired
 	private DevlpTeamMapper devlpTeamMapper;
+	
 	@Override
 	public DevlpTeam getDevlpTeamInfo() {
 		DevlpTeam devlpTeam = (DevlpTeam) devlpTeamMapper.selectByExample(null).get(0);

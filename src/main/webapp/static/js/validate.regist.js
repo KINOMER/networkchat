@@ -2,7 +2,7 @@
  * 
  */
 
-	//用户注册时校验数据
+/*	//用户注册时校验数据
 	function txtFocus(ele){
 		$("."+ele+"").css({
 			"border":"2px solid #0f88eb",
@@ -12,7 +12,7 @@
 		$("."+ele+"").css({
 			"border":"1px solid white",
 		});
-	}
+	}*/
 	
 	$("#username").change(function(){
 		var username = $("#username").val();
@@ -27,7 +27,7 @@
 					$("#button").removeAttr("disabled");
 					$("#warnMsg").html("").css({});
 					$("#warnMsg").html(msg).css({
-						"color":"green",
+						"color":"#0f88eb",
 						"text-align":"center",
 					});
 				}else{
@@ -46,22 +46,22 @@
 		var rePassword = $("#password1").val();
 		
 		if(username ==  undefined || "" == username){
-			warnMsg("请输入用户名！");
+			warnMsg("×：请输入用户名");
 			return false;
 		}else if(!regName.test(username)){
-			warnMsg("用户名必须是2-5位中文或者6-16位英文和数字的组合!");
+			warnMsg("×：用户名必须是2-5位中文或者6-16位英文和数字的组合!");
 			return false;
 		}else if(password == null || password ==''){
-			warnMsg("请输入密码！");
+			warnMsg("×：请输入密码");
 			return false;
 		}else if(rePassword == null || rePassword ==''){
-			warnMsg("请重新输入密码！");
+			warnMsg("×：请重新输入密码");
 			return false;
 		}else if(!regPassWord.test(password)){
-			warnMsg("输入密码不合法！");
+			warnMsg("×：输入密码不合法");
 			return false;
 		}else if(password != rePassword){
-			warnMsg("两次密码不一致！");
+			warnMsg("×：两次密码不一致");
 			return false;
 		}else{
 			//$("#regist_form").submit(); 
@@ -76,7 +76,6 @@
 					if(code == 1){
 						$("#warnMsg").html("").css({});
 						$("#warnMsg").html(msg).css({
-							"color":"green",
 							"text-align":"center",
 						});
 					}else{

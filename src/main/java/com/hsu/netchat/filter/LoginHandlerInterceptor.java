@@ -20,12 +20,11 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
 		String requestURI = request.getRequestURI();  
 		List<Anno> annoMsg = null;
 		
-		//在用户登录的过程中就进行拦截，获得公告信息，并保存在session域中
-		if(requestURI.indexOf("login")>0){
+		// 在用户登录的过程中就进行拦截，获得公告信息，并保存在session域中
+		if(requestURI.indexOf("login") > 0){
 			annoMsg = annoService.getAnnoMsg();
 			request.getSession().setAttribute("anno", annoMsg.get(0).getAnno());
 		}
@@ -42,7 +41,6 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 

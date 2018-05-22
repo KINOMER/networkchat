@@ -12,6 +12,7 @@ import com.hsu.netchat.dao.AnnoMapper;
 public class AnnoServiceImpl implements AnnoService {
 	@Autowired
 	private AnnoMapper annoMapper;
+	
 	@Override
 	public List<Anno> getAnnoMsg() {
 		

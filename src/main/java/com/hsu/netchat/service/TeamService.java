@@ -6,6 +6,7 @@ public interface TeamService {
 	
 	/***
 	 * 获取开发团队的信息
+	 * 
 	 * @return
 	 */
 	DevlpTeam getDevlpTeamInfo();

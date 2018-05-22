@@ -7,9 +7,6 @@
 	<meta charset="utf-8">
 	<title>用户注册</title>
 	<link rel="stylesheet" type="text/css" href="${APP_PATH }/static/css/register-login.css">
-	<link rel="icon" type="image/png"
-		href="${APP_PATH }/static/plugins/assets/i/favicon.png">
-</head>
 <body>
 <div id="box"></div>
 <div class="cent-box register-box">
@@ -27,22 +24,19 @@
 			</div>
 		</div>
 		<div>
-			<p id="warnMsg" style="text-align: center;"></p>
+			<p id="warnMsg"></p>
 		</div>
 		<div class="regist form">
 			<form id="regist_form" action="${APP_PATH }/regist" method="post">
 				<div class="group">
 					<div class="group-ipt user">
-						<input type="text" name="username" id="username" class="ipt" 
-							onfocus="txtFocus('user')" onblur="txtBlur('user')" placeholder="选择一个用户名" required>
+						<input type="text" name="username" id="username" class="ipt" placeholder="选择一个用户名" required>
 					</div>
 					<div class="group-ipt password">
-						<input type="password" name="password" id="password" class="ipt" 
-							onfocus="txtFocus('password')" onblur="txtBlur('password')" placeholder="设置登录密码" required>
+						<input type="password" name="password" id="password" class="ipt" placeholder="设置登录密码" required>
 					</div>
 					<div class="group-ipt password1">	
-						<input type="password" name="rePassword" id="password1" class="ipt" 
-							onfocus="txtFocus('password1')" onblur="txtBlur('password1')" placeholder="重复密码" required>
+						<input type="password" name="rePassword" id="password1" class="ipt" placeholder="重复密码" required>
 					</div>
 				</div>
 			</form>

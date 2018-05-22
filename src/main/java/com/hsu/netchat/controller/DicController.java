@@ -8,6 +8,7 @@ public class DicController {
 	
 	/**
 	 * 转发到帮助页面
+	 * 
 	 * @return
 	 */
 	@RequestMapping("/help")

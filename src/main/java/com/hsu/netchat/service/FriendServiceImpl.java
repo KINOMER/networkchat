@@ -21,9 +21,9 @@ public class FriendServiceImpl implements FriendService {
 	}
 	@Override
 	public boolean isFriend(int userId, int friendId, int friendId2, int userId2) {
-		
 		int total = friendMapper.isFriend(userId, friendId,friendId2,userId2);
-		if(total>=1){
+		
+		if(total >= 1){
 			return false;
 		}else{
 			return true;

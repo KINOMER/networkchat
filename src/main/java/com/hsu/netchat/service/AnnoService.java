@@ -8,6 +8,7 @@ public interface AnnoService {
 	
 	/**
 	 * 获取数据库中的公告信息
+	 * 
 	 * @return
 	 */
 	List<Anno> getAnnoMsg();

@@ -22,50 +22,42 @@ public class FriendController {
 
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private FriendService friendService;
-	/**
-	 * 根据用户添加的好友姓名添加好友
-	 * @param friendName 好友名称
-	 * @return 如果用户存在，则添加成功，否则添加失败
-	 */
+	
 	@RequestMapping("/addFriend")
 	@ResponseBody
 	public Msg addFriend(HttpServletRequest request,String friendName){
-		
 		User friend = userService.getUserByUserName(friendName);
 		User user = (User) request.getSession().getAttribute("userInfo");
 		
 		if(friend == null){
 			return Msg.fail("该用户不存在！");	
-		}else if(user != null && friend!=null){
+		}else if(user != null && friend != null){
 			if(user.getUsername().equals(friend.getUsername())){
 				return Msg.fail("您不能添加自己为好友哦！");	
 			}else{
 				Friend friendReal = new Friend();
-				
 				int userId = user.getUserId();
 				int friendId = friend.getUserId();
+				
 				friendReal.setUserId(userId);
 				friendReal.setFriendId(friendId);
 				
-				//在添加好友之前先判断是不是好友关系，不是好友关系才能添加好友
+				// 在添加好友之前先判断是不是好友关系，不是好友关系才能添加好友
 				boolean b = friendService.isFriend(userId,friendId,friendId,userId);
-				
 				if(b){ 
 					friendService.addFriend(friendReal);
 					return Msg.success("添加好友成功!");
 				}else{
 					return Msg.fail("你和"+friendName+"已经是好友关系!");	
 				}
-				
 			}
 		}else{
 			return Msg.fail("您还没有登录！");	
 		}
-	}  
-	
+	}
+    
 	@RequestMapping("/getFriendsList")
 	@ResponseBody
 	public Msg getFriendsList(HttpServletRequest request){
@@ -75,16 +67,17 @@ public class FriendController {
 		
 		if(user != null){
 			int userId = user.getUserId();
-			//获得所有好友的id集合
+			// 获得所有好友的id集合
 			Set<Integer> set = friendService.getFriendIdList(userId,userId);
-			
-			//根据好友的id集合获得好友信息，并将好友名以json形式返回
-			for(Integer id :set){
+			// 根据好友的id集合获得好友信息，并将好友信息以json形式返回
+			for(Integer id : set){
 				User friend = userService.getUserById(id);
+				// 将好友的密码设置为空
 				friend.setPassword("");
 				map.put(friend.getUsername(), friend);
 			}
 		}
+		
 		return Msg.success("获取朋友列表成功！").add("friends", map);
 	}
 }

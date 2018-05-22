@@ -11,6 +11,7 @@ import com.hsu.netchat.service.TeamService;
 
 @Controller
 public class AboutUsController {
+	
 	@Autowired
 	private TeamService teamService;
 	
@@ -18,6 +19,8 @@ public class AboutUsController {
 	@RequestMapping("/aboutUs")
 	public Msg aboutUs(){
 		DevlpTeam devlpTeam = teamService.getDevlpTeamInfo();
+		
 		return Msg.success("获得团队信息成功！").add("teamInfo", devlpTeam);
 	}
+	
 }
